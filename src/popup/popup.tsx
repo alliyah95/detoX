@@ -1,11 +1,7 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 import { BodyWrapper, CounterCard, Header } from "./components";
-import {
-    ExtensionDataProvider,
-    ExtensionDataContext,
-} from "../context/extension-data";
 import { getStoredTweetCount } from "../utils/storage";
 
 type CountState = "fetching" | "ready";
@@ -21,23 +17,33 @@ const App: React.FC<{}> = () => {
             setDetectedTweetsCount(count);
             setCountState("ready");
         });
+
+        // storage listener
+        const handleStorageChange = (changes: any, namespace: string) => {
+            if (changes.detectedTweetsCount && namespace === "local") {
+                setDetectedTweetsCount(changes.detectedTweetsCount.newValue);
+            }
+        };
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
     }, []);
 
     return (
-        <ExtensionDataProvider>
-            <div>
-                <Header />
-                <BodyWrapper>
-                    <CounterCard
-                        tweetCount={
-                            countState === "fetching"
-                                ? countState
-                                : detectedTweetsCount
-                        }
-                    />
-                </BodyWrapper>
-            </div>
-        </ExtensionDataProvider>
+        <div>
+            <Header />
+            <BodyWrapper>
+                <CounterCard
+                    tweetCount={
+                        countState === "ready"
+                            ? detectedTweetsCount
+                            : "Loading..."
+                    }
+                />
+            </BodyWrapper>
+        </div>
     );
 };
 
