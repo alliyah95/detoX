@@ -4,21 +4,44 @@ import "./popup.css";
 import { BodyWrapper, CounterCard, Header } from "./components";
 import { getStoredTweetCount } from "../utils/storage";
 
+type CountState = "fetching" | "ready";
+
 const App: React.FC<{}> = () => {
-    const [detectedTweetsCount, setDetectedTweetsCount] = useState<number>(0);
+    const [detectedTweetsCount, setDetectedTweetsCount] = useState<
+        number | null
+    >(null);
+    const [countState, setCountState] = useState<CountState>("fetching");
 
     useEffect(() => {
-        getStoredTweetCount().then((tweetCount) =>
-            setDetectedTweetsCount(tweetCount)
-        );
+        getStoredTweetCount().then((count) => {
+            setDetectedTweetsCount(count);
+            setCountState("ready");
+        });
+
+        // storage listener
+        const handleStorageChange = (changes: any, namespace: string) => {
+            if (changes.detectedTweetsCount && namespace === "local") {
+                setDetectedTweetsCount(changes.detectedTweetsCount.newValue);
+            }
+        };
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
     }, []);
 
     return (
         <div>
             <Header />
-
             <BodyWrapper>
-                <CounterCard tweetCount={detectedTweetsCount} />
+                <CounterCard
+                    tweetCount={
+                        countState === "ready"
+                            ? detectedTweetsCount
+                            : "Loading..."
+                    }
+                />
             </BodyWrapper>
         </div>
     );

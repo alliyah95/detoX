@@ -1,7 +1,7 @@
 import React from "react";
 
 interface CounterCardProps {
-    tweetCount: number;
+    tweetCount: number | string;
 }
 
 const CounterCard: React.FC<CounterCardProps> = ({ tweetCount }) => {
