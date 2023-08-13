@@ -36,6 +36,15 @@ const App: React.FC<{}> = () => {
             <Header />
             <BodyWrapper>
                 <CounterCard
+                    heading="TODAY"
+                    tweetCount={
+                        countState === "ready"
+                            ? detectedTweetsCount
+                            : "Loading..."
+                    }
+                />
+                <CounterCard
+                    heading="SINCE INSTALL"
                     tweetCount={
                         countState === "ready"
                             ? detectedTweetsCount
