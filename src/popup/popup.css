@@ -1,3 +1,70 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-  background-color: #1c1c1c;
+    height: 500px;
+    width: 400px;
+    background-color: #dce0e8;
+    font-family: "Inter";
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.text-blue {
+    color: #0051ce;
+}
+
+.text-light-blue {
+    color: #dce0e8;
+}
+
+.text-black {
+    color: #000000;
+}
+
+.text-gray {
+    color: #b9b8c0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.font-bold {
+    font-weight: bold;
+}
+
+/* SPECIFIC */
+.body-wrapper {
+    padding: 64px 32px;
+}
+
+.header__wrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header__title {
+    font-size: 18px;
+    opacity: 60%;
+}
+
+.counter-card {
+    border-radius: 6px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.counter-card__title {
+    font-size: 18px;
+    margin-top: 8px;
+}
+
+.counter-card__count {
+    font-size: 72px;
 }

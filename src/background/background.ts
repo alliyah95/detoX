@@ -1,4 +1,6 @@
-// TODO: background script
+import { setStoredTweetCount } from "../utils/storage";
+
 chrome.runtime.onInstalled.addListener(() => {
-  // TODO: on installed function
-})
+    // default count to 0
+    setStoredTweetCount(0);
+});
