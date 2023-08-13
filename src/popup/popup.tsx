@@ -29,8 +29,19 @@ const App: React.FC<{}> = () => {
                 (changes.dailyTweetCount || changes.allTimeTweetCount) &&
                 namespace === "local"
             ) {
-                setDailyTweetCount(changes.dailyTweetCount.newValue);
-                setAllTimeTweetCount(changes.allTimeTweetCount.newValue);
+                if (
+                    changes.dailyTweetCount &&
+                    changes.dailyTweetCount.newValue
+                ) {
+                    setDailyTweetCount(changes.dailyTweetCount.newValue);
+                }
+
+                if (
+                    changes.allTimeTweetCount &&
+                    changes.allTimeTweetCount.newValue
+                ) {
+                    setAllTimeTweetCount(changes.allTimeTweetCount.newValue);
+                }
             }
         };
         chrome.storage.onChanged.addListener(handleStorageChange);

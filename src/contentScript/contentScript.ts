@@ -54,6 +54,19 @@ const enableExtension = (): void => {
     document.addEventListener("DOMContentLoaded", detectNewTweets);
     window.addEventListener("load", scrollFunction);
     window.addEventListener("scroll", detectNewTweets);
+
+    const handleStorageChange = (changes: any, namespace: string) => {
+        if (changes.dailyTweetCount && namespace === "local") {
+            if (changes.dailyTweetCount.newValue === 0) {
+                // TODO fix:
+                // pag nireset yung sessionTweetCount naaapektuhan yung
+                // AllTimeTweetCount
+                sessionTweetCount = 0;
+                initialDailyTweetCount = 0;
+            }
+        }
+    };
+    chrome.storage.onChanged.addListener(handleStorageChange);
 };
 
 enableExtension();
