@@ -7,21 +7,30 @@ import { getStoredTweetCount } from "../utils/storage";
 type CountState = "fetching" | "ready";
 
 const App: React.FC<{}> = () => {
-    const [detectedTweetsCount, setDetectedTweetsCount] = useState<
-        number | null
-    >(null);
+    const [dailyTweetCount, setDailyTweetCount] = useState<number | null>(null);
+    const [allTimeTweetCount, setAllTimeTweetCount] = useState<number | null>(
+        null
+    );
     const [countState, setCountState] = useState<CountState>("fetching");
 
     useEffect(() => {
-        getStoredTweetCount().then((count) => {
-            setDetectedTweetsCount(count);
+        getStoredTweetCount().then((tweetCounts) => {
+            const dailyCount = tweetCounts.dailyTweetCount;
+            const allTimeCount = tweetCounts.allTimeTweetCount;
+
+            setDailyTweetCount(dailyCount);
+            setAllTimeTweetCount(allTimeCount);
             setCountState("ready");
         });
 
         // storage listener
         const handleStorageChange = (changes: any, namespace: string) => {
-            if (changes.detectedTweetsCount && namespace === "local") {
-                setDetectedTweetsCount(changes.detectedTweetsCount.newValue);
+            if (
+                (changes.dailyTweetCount || changes.allTimeTweetCount) &&
+                namespace === "local"
+            ) {
+                setDailyTweetCount(changes.dailyTweetCount.newValue);
+                setAllTimeTweetCount(changes.allTimeTweetCount.newValue);
             }
         };
         chrome.storage.onChanged.addListener(handleStorageChange);
@@ -38,16 +47,14 @@ const App: React.FC<{}> = () => {
                 <CounterCard
                     heading="TODAY"
                     tweetCount={
-                        countState === "ready"
-                            ? detectedTweetsCount
-                            : "Loading..."
+                        countState === "ready" ? dailyTweetCount : "Loading..."
                     }
                 />
                 <CounterCard
                     heading="SINCE INSTALL"
                     tweetCount={
                         countState === "ready"
-                            ? detectedTweetsCount
+                            ? allTimeTweetCount
                             : "Loading..."
                     }
                 />

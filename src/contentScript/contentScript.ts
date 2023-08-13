@@ -1,10 +1,13 @@
 import { sendTweetToServer } from "../utils/api";
 import { setStoredTweetCount, getStoredTweetCount } from "../utils/storage";
 
-let initialTweetcount = 0;
+let initialDailyTweetCount = 0;
+let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
+
 getStoredTweetCount().then((count) => {
-    initialTweetcount = count;
+    initialDailyTweetCount = count.dailyTweetCount;
+    initialAllTimeTweetCount = count.allTimeTweetCount;
 });
 
 const detectNewTweets = async (): Promise<void> => {
@@ -32,7 +35,10 @@ const detectNewTweets = async (): Promise<void> => {
                 tweet.style.backgroundColor = "red";
 
                 sessionTweetCount++;
-                setStoredTweetCount(sessionTweetCount + initialTweetcount);
+                setStoredTweetCount(
+                    sessionTweetCount + initialDailyTweetCount,
+                    sessionTweetCount + initialAllTimeTweetCount
+                );
             }
         } catch (err) {}
     }
