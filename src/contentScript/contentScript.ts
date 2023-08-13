@@ -1,4 +1,11 @@
 import { sendTweetToServer } from "../utils/api";
+import { setStoredTweetCount, getStoredTweetCount } from "../utils/storage";
+
+let initialTweetcount = 0;
+let sessionTweetCount = 0;
+getStoredTweetCount().then((count) => {
+    initialTweetcount = count;
+});
 
 const detectNewTweets = async (): Promise<void> => {
     const elements = document.getElementsByClassName(
@@ -24,7 +31,8 @@ const detectNewTweets = async (): Promise<void> => {
                 // hide tweet instead of just changing the background color
                 tweet.style.backgroundColor = "red";
 
-                // updateDetectedTweetsCount();
+                sessionTweetCount++;
+                setStoredTweetCount(sessionTweetCount + initialTweetcount);
             }
         } catch (err) {}
     }

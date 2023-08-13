@@ -13,6 +13,7 @@ export const ExtensionDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         getStoredTweetCount().then((count) => setTweetCount(count));
+        console.log(tweetCount);
     }, []);
 
     const extensionDataObj: LocalStorage = {
