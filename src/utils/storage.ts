@@ -5,6 +5,18 @@ interface LocalStorage {
 
 type LocalStorageKeys = keyof LocalStorage;
 
+const resetDailyTweetCount = (): Promise<void> => {
+    const newData = {
+        dailyTweetCount: 0,
+    };
+
+    return new Promise((resolve) => {
+        chrome.storage.local.set(newData, () => {
+            resolve();
+        });
+    });
+};
+
 const setStoredTweetCount = (
     dailyTweetCount: number,
     allTimeTweetCount: number
@@ -31,4 +43,9 @@ const getStoredTweetCount = (): Promise<LocalStorage> => {
     });
 };
 
-export { LocalStorage, setStoredTweetCount, getStoredTweetCount };
+export {
+    LocalStorage,
+    setStoredTweetCount,
+    getStoredTweetCount,
+    resetDailyTweetCount,
+};
