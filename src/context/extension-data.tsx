@@ -12,8 +12,21 @@ export const ExtensionDataProvider: React.FC<{ children: React.ReactNode }> = ({
     const [tweetCount, setTweetCount] = useState<number | null>(null);
 
     useEffect(() => {
-        getStoredTweetCount().then((count) => setTweetCount(count));
-        console.log(tweetCount);
+        getStoredTweetCount().then((count) => {
+            setTweetCount(count);
+        });
+
+        const handleStorageChange = (changes: any, namespace: string) => {
+            if (changes.detectedTweetsCount && namespace === "local") {
+                console.log(changes.detectedTweetsCount.newValue);
+                setTweetCount(changes.detectedTweetsCount.newValue);
+            }
+        };
+        chrome.storage.onChanged.addListener(handleStorageChange);
+
+        return () => {
+            chrome.storage.onChanged.removeListener(handleStorageChange);
+        };
     }, []);
 
     const extensionDataObj: LocalStorage = {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 import { BodyWrapper, CounterCard, Header } from "./components";
@@ -6,16 +6,35 @@ import {
     ExtensionDataProvider,
     ExtensionDataContext,
 } from "../context/extension-data";
+import { getStoredTweetCount } from "../utils/storage";
+
+type CountState = "fetching" | "ready";
 
 const App: React.FC<{}> = () => {
-    const { detectedTweetsCount } = useContext(ExtensionDataContext);
+    const [detectedTweetsCount, setDetectedTweetsCount] = useState<
+        number | null
+    >(null);
+    const [countState, setCountState] = useState<CountState>("fetching");
+
+    useEffect(() => {
+        getStoredTweetCount().then((count) => {
+            setDetectedTweetsCount(count);
+            setCountState("ready");
+        });
+    }, []);
 
     return (
         <ExtensionDataProvider>
             <div>
                 <Header />
                 <BodyWrapper>
-                    <CounterCard tweetCount={detectedTweetsCount} />
+                    <CounterCard
+                        tweetCount={
+                            countState === "fetching"
+                                ? countState
+                                : detectedTweetsCount
+                        }
+                    />
                 </BodyWrapper>
             </div>
         </ExtensionDataProvider>
