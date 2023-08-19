@@ -2,40 +2,28 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 import { BodyWrapper, CounterCard, Header } from "./components";
-import { getStoredTweetCount } from "../utils/storage";
+import { getStoredAllTimeTweetCount } from "../utils/storage";
 
 type CountState = "fetching" | "ready";
 
 const App: React.FC<{}> = () => {
-    const [dailyTweetCount, setDailyTweetCount] = useState<number | null>(null);
+    const [sessionTweetCount, setSessionTweetCount] = useState<number>(0);
     const [allTimeTweetCount, setAllTimeTweetCount] = useState<number | null>(
         null
     );
     const [countState, setCountState] = useState<CountState>("fetching");
 
     useEffect(() => {
-        getStoredTweetCount().then((tweetCounts) => {
-            const dailyCount = tweetCounts.dailyTweetCount;
+        getStoredAllTimeTweetCount().then((tweetCounts) => {
             const allTimeCount = tweetCounts.allTimeTweetCount;
 
-            setDailyTweetCount(dailyCount);
             setAllTimeTweetCount(allTimeCount);
             setCountState("ready");
         });
 
         // storage listener
         const handleStorageChange = (changes: any, namespace: string) => {
-            if (
-                (changes.dailyTweetCount || changes.allTimeTweetCount) &&
-                namespace === "local"
-            ) {
-                if (
-                    changes.dailyTweetCount &&
-                    changes.dailyTweetCount.newValue
-                ) {
-                    setDailyTweetCount(changes.dailyTweetCount.newValue);
-                }
-
+            if (changes.allTimeTweetCount && namespace === "local") {
                 if (
                     changes.allTimeTweetCount &&
                     changes.allTimeTweetCount.newValue
@@ -56,9 +44,11 @@ const App: React.FC<{}> = () => {
             <Header />
             <BodyWrapper>
                 <CounterCard
-                    heading="TODAY"
+                    heading="ON THIS PAGE"
                     tweetCount={
-                        countState === "ready" ? dailyTweetCount : "Loading..."
+                        countState === "ready"
+                            ? sessionTweetCount
+                            : "Loading..."
                     }
                 />
                 <CounterCard

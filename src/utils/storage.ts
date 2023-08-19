@@ -1,28 +1,28 @@
 interface LocalStorage {
-    dailyTweetCount: number;
     allTimeTweetCount: number;
 }
 
 type LocalStorageKeys = keyof LocalStorage;
 
-const resetDailyTweetCount = (): Promise<void> => {
-    const newData = {
-        dailyTweetCount: 0,
-    };
+// const resetDailyTweetCount = (): Promise<void> => {
+//     const newData = {
+//         dailyTweetCount: 0,
+//     };
 
-    return new Promise((resolve) => {
-        chrome.storage.local.set(newData, () => {
-            resolve();
-        });
-    });
-};
+//     console.log("here");
 
-const setStoredTweetCount = (
-    dailyTweetCount: number,
+//     return new Promise((resolve) => {
+//         chrome.storage.local.set(newData, () => {
+//             console.log("reset func");
+//             resolve();
+//         });
+//     });
+// };
+
+const setStoredAllTimeTweetCount = (
     allTimeTweetCount: number
 ): Promise<void> => {
     const vals: LocalStorage = {
-        dailyTweetCount,
         allTimeTweetCount,
     };
     return new Promise((resolve) => {
@@ -32,20 +32,14 @@ const setStoredTweetCount = (
     });
 };
 
-const getStoredTweetCount = (): Promise<LocalStorage> => {
-    const keys: LocalStorageKeys[] = ["dailyTweetCount", "allTimeTweetCount"];
+const getStoredAllTimeTweetCount = (): Promise<LocalStorage> => {
+    const keys: LocalStorageKeys[] = ["allTimeTweetCount"];
     return new Promise((resolve) => {
         chrome.storage.local.get(keys, (res: LocalStorage) => {
-            const dailyTweetCount = res.dailyTweetCount;
             const allTimeTweetCount = res.allTimeTweetCount;
-            resolve({ dailyTweetCount, allTimeTweetCount });
+            resolve({ allTimeTweetCount });
         });
     });
 };
 
-export {
-    LocalStorage,
-    setStoredTweetCount,
-    getStoredTweetCount,
-    resetDailyTweetCount,
-};
+export { LocalStorage, setStoredAllTimeTweetCount, getStoredAllTimeTweetCount };

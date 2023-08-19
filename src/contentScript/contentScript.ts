@@ -1,12 +1,13 @@
 import { sendTweetToServer } from "../utils/api";
-import { setStoredTweetCount, getStoredTweetCount } from "../utils/storage";
+import {
+    setStoredAllTimeTweetCount,
+    getStoredAllTimeTweetCount,
+} from "../utils/storage";
 
-let initialDailyTweetCount = 0;
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
 
-getStoredTweetCount().then((count) => {
-    initialDailyTweetCount = count.dailyTweetCount;
+getStoredAllTimeTweetCount().then((count) => {
     initialAllTimeTweetCount = count.allTimeTweetCount;
 });
 
@@ -35,9 +36,8 @@ const detectNewTweets = async (): Promise<void> => {
                 tweet.style.backgroundColor = "red";
 
                 sessionTweetCount++;
-                setStoredTweetCount(
-                    sessionTweetCount + initialDailyTweetCount,
-                    sessionTweetCount + initialAllTimeTweetCount
+                setStoredAllTimeTweetCount(
+                    initialAllTimeTweetCount + sessionTweetCount
                 );
             }
         } catch (err) {}
@@ -55,18 +55,17 @@ const enableExtension = (): void => {
     window.addEventListener("load", scrollFunction);
     window.addEventListener("scroll", detectNewTweets);
 
-    const handleStorageChange = (changes: any, namespace: string) => {
-        if (changes.dailyTweetCount && namespace === "local") {
-            if (changes.dailyTweetCount.newValue === 0) {
-                // TODO fix:
-                // pag nireset yung sessionTweetCount naaapektuhan yung
-                // AllTimeTweetCount
-                sessionTweetCount = 0;
-                initialDailyTweetCount = 0;
-            }
-        }
-    };
-    chrome.storage.onChanged.addListener(handleStorageChange);
+    // const handleStorageChange = (changes: any, namespace: string) => {
+    //     if (changes.dailyTweetCount && namespace === "local") {
+    //         if (changes.dailyTweetCount.newValue === 0) {
+    //             sessionDailyTweetCount = 0;
+    //             sessionAllTimeTweetCount = 0;
+    //             initialDailyTweetCount = 0;
+    //             initialAllTimeTweetCount = 0;
+    //         }
+    //     }
+    // };
+    // chrome.storage.onChanged.addListener(handleStorageChange);
 };
 
 enableExtension();
