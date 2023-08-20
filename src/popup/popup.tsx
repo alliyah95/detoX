@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
 import { BodyWrapper, CounterCard, Header } from "./components";
-import { getStoredAllTimeTweetCount } from "../utils/storage";
+import {
+    getExtensionState,
+    getStoredAllTimeTweetCount,
+} from "../utils/storage";
 
 type CountState = "fetching" | "ready";
 
@@ -12,6 +15,7 @@ const App: React.FC<{}> = () => {
         null
     );
     const [countState, setCountState] = useState<CountState>("fetching");
+    const [extensionState, setExtensionState] = useState<boolean | null>(null);
 
     useEffect(() => {
         getStoredAllTimeTweetCount().then((tweetCounts) => {
@@ -19,6 +23,10 @@ const App: React.FC<{}> = () => {
 
             setAllTimeTweetCount(allTimeCount);
             setCountState("ready");
+        });
+
+        getExtensionState().then((state) => {
+            setExtensionState(state);
         });
 
         // storage listener
@@ -41,7 +49,7 @@ const App: React.FC<{}> = () => {
 
     return (
         <div>
-            <Header />
+            <Header extensionState={extensionState} />
             <BodyWrapper>
                 <CounterCard
                     heading="ON THIS PAGE"

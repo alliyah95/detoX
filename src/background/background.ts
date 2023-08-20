@@ -1,7 +1,11 @@
-import { setStoredAllTimeTweetCount } from "../utils/storage";
+import {
+    setExtensionState,
+    setStoredAllTimeTweetCount,
+} from "../utils/storage";
 
 chrome.runtime.onInstalled.addListener(() => {
     setStoredAllTimeTweetCount(0);
+    setExtensionState(true);
 });
 
 // TODO change UTC hours to 4

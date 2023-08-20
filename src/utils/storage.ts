@@ -1,5 +1,6 @@
 interface LocalStorage {
-    allTimeTweetCount: number;
+    allTimeTweetCount?: number;
+    extensionEnabled?: boolean;
 }
 
 type LocalStorageKeys = keyof LocalStorage;
@@ -18,6 +19,26 @@ type LocalStorageKeys = keyof LocalStorage;
 //         });
 //     });
 // };
+
+const setExtensionState = (extensionEnabled: boolean): Promise<void> => {
+    return new Promise<void>((resolve) => {
+        const vals: LocalStorage = {
+            extensionEnabled,
+        };
+        chrome.storage.local.set(vals, () => {
+            resolve();
+        });
+    });
+};
+
+const getExtensionState = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+        chrome.storage.local.get("extensionEnabled", (result) => {
+            const state = result.extensionEnabled;
+            resolve(state);
+        });
+    });
+};
 
 const setStoredAllTimeTweetCount = (
     allTimeTweetCount: number
@@ -42,4 +63,9 @@ const getStoredAllTimeTweetCount = (): Promise<LocalStorage> => {
     });
 };
 
-export { LocalStorage, setStoredAllTimeTweetCount, getStoredAllTimeTweetCount };
+export {
+    setStoredAllTimeTweetCount,
+    getStoredAllTimeTweetCount,
+    setExtensionState,
+    getExtensionState,
+};
