@@ -3,6 +3,7 @@ import {
     getCurrentTab,
     getCurrentUsername,
     sendExtensionStateToContentScript,
+    isAccountPrivate,
 } from "./general";
 import {
     setExtensionState,
@@ -20,4 +21,5 @@ export {
     setStoredAllTimeTweetCount,
     getCurrentTab,
     getCurrentUsername,
+    isAccountPrivate,
 };

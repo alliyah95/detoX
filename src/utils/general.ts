@@ -33,4 +33,15 @@ const getCurrentUsername = (): string => {
     }
 };
 
-export { getCurrentTab, getCurrentUsername, sendExtensionStateToContentScript };
+const isAccountPrivate = (tweet: HTMLDivElement): boolean => {
+    return (
+        tweet.querySelectorAll('[aria-label="Protected account"]').length > 0
+    );
+};
+
+export {
+    getCurrentTab,
+    getCurrentUsername,
+    isAccountPrivate,
+    sendExtensionStateToContentScript,
+};

@@ -4,6 +4,7 @@ import {
     getStoredAllTimeTweetCount,
     getExtensionState,
     getCurrentUsername,
+    isAccountPrivate,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -31,6 +32,10 @@ const detectNewTweets = async (): Promise<void> => {
         }
 
         if (currentUser === tweetAuthor) {
+            continue;
+        }
+
+        if (isAccountPrivate(tweet)) {
             continue;
         }
 
