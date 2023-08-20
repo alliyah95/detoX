@@ -3,6 +3,7 @@ import {
     setStoredAllTimeTweetCount,
     getStoredAllTimeTweetCount,
     getExtensionState,
+    getCurrentUsername,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -18,7 +19,20 @@ const detectNewTweets = async (): Promise<void> => {
     );
 
     for (let index = 0; index < elements.length; index++) {
+        const currentUser = `@${getCurrentUsername()}`;
         const tweet = elements[index] as HTMLDivElement;
+        const tweetContent = tweet.innerText.split("\n");
+        let tweetAuthor: string;
+
+        if (tweetContent[0].includes("reposted")) {
+            tweetAuthor = tweetContent[2];
+        } else {
+            tweetAuthor = tweetContent[1];
+        }
+
+        if (currentUser === tweetAuthor) {
+            continue;
+        }
 
         if (tweet.hasAttribute("data-tweet-processed")) {
             continue;

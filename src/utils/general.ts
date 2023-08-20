@@ -15,4 +15,22 @@ const getCurrentTab = async () => {
     return tab;
 };
 
-export { getCurrentTab, sendExtensionStateToContentScript };
+const getCurrentUsername = (): string => {
+    const loggedInIndicator = document.querySelector(
+        '[data-testid="SideNav_AccountSwitcher_Button"]'
+    );
+
+    if (loggedInIndicator) {
+        const usernameContainer = document.querySelector(
+            '[data-testid^="UserAvatar-Container-"]'
+        );
+
+        if (usernameContainer) {
+            const dataTestId = usernameContainer.getAttribute("data-testid");
+            const username = dataTestId.split("-").pop();
+            return username;
+        }
+    }
+};
+
+export { getCurrentTab, getCurrentUsername, sendExtensionStateToContentScript };
