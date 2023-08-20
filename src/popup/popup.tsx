@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./popup.css";
-import { BodyWrapper, CounterCard, Header } from "./components";
+import {
+    BodyWrapper,
+    CounterCard,
+    Header,
+    HeaderWrapper,
+    Toggle,
+} from "./components";
 import {
     getExtensionState,
     getStoredAllTimeTweetCount,
 } from "../utils/storage";
+import { sendExtensionStateToContentScript } from "../utils/general";
 
 type CountState = "fetching" | "ready";
 
@@ -15,7 +22,7 @@ const App: React.FC<{}> = () => {
         null
     );
     const [countState, setCountState] = useState<CountState>("fetching");
-    const [extensionState, setExtensionState] = useState<boolean | null>(null);
+    const [extensionState, setExtensionState] = useState<boolean | null>(false);
 
     useEffect(() => {
         getStoredAllTimeTweetCount().then((tweetCounts) => {
@@ -29,7 +36,6 @@ const App: React.FC<{}> = () => {
             setExtensionState(state);
         });
 
-        // storage listener
         const handleStorageChange = (changes: any, namespace: string) => {
             if (changes.allTimeTweetCount && namespace === "local") {
                 if (
@@ -47,9 +53,17 @@ const App: React.FC<{}> = () => {
         };
     }, []);
 
+    const handleExtensionState = (newState: boolean): void => {
+        setExtensionState(newState);
+        sendExtensionStateToContentScript(newState);
+    };
+
     return (
         <div>
-            <Header extensionState={extensionState} />
+            <HeaderWrapper>
+                <Header />
+                <Toggle isOn={extensionState} onChange={handleExtensionState} />
+            </HeaderWrapper>
             <BodyWrapper>
                 <CounterCard
                     heading="ON THIS PAGE"
