@@ -42,6 +42,9 @@ body {
 /* SPECIFIC */
 .body-wrapper {
     padding: 64px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .header__wrapper {
@@ -54,17 +57,18 @@ body {
     opacity: 60%;
 }
 
-.counter-card {
+.counter-card,
+.heading-wrapper {
     border-radius: 6px;
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .counter-card__title {
-    font-size: 18px;
+    font-size: 14px;
     margin-top: 8px;
 }
 
 .counter-card__count {
-    font-size: 72px;
+    font-size: 54px;
 }

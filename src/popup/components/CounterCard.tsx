@@ -2,13 +2,13 @@ import React from "react";
 
 interface CounterCardProps {
     tweetCount: number | string;
+    heading: string;
 }
 
-const CounterCard: React.FC<CounterCardProps> = ({ tweetCount }) => {
+const CounterCard: React.FC<CounterCardProps> = ({ tweetCount, heading }) => {
     return (
         <div className="counter-card bg-white text-center">
-            <p className="text-gray">TODAY</p>
-            <h2 className="counter-card__title font-bold">Blocked Tweets</h2>
+            <p className="counter-card__title text-gray">{heading}</p>
             <p className="counter-card__count text-blue font-bold">
                 {tweetCount}
             </p>
