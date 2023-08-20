@@ -4,6 +4,7 @@ import "./popup.css";
 import {
     BodyWrapper,
     CounterCard,
+    ErrorMessage,
     Header,
     HeaderWrapper,
     Toggle,
@@ -12,6 +13,7 @@ import {
     getExtensionState,
     getStoredAllTimeTweetCount,
     sendExtensionStateToContentScript,
+    getCurrentTab,
 } from "../utils";
 
 type CountState = "fetching" | "ready";
@@ -23,6 +25,15 @@ const App: React.FC<{}> = () => {
     );
     const [countState, setCountState] = useState<CountState>("fetching");
     const [extensionState, setExtensionState] = useState<boolean | null>(false);
+    const [isTabOnTwitter, setIsTabOnTwitter] = useState<boolean>(true);
+
+    const checkActiveTab = async (): Promise<void> => {
+        const activeTab = await getCurrentTab();
+
+        setIsTabOnTwitter(
+            activeTab && activeTab.url && activeTab.url.includes("twitter.com")
+        );
+    };
 
     useEffect(() => {
         getStoredAllTimeTweetCount().then((tweetCounts) => {
@@ -35,6 +46,8 @@ const App: React.FC<{}> = () => {
         getExtensionState().then((state) => {
             setExtensionState(state);
         });
+
+        checkActiveTab();
 
         const handleStorageChange = (changes: any, namespace: string) => {
             if (changes.allTimeTweetCount && namespace === "local") {
@@ -64,7 +77,9 @@ const App: React.FC<{}> = () => {
                 <Header />
                 <Toggle isOn={extensionState} onChange={handleExtensionState} />
             </HeaderWrapper>
+
             <BodyWrapper>
+                {!isTabOnTwitter && <ErrorMessage />}
                 <CounterCard
                     heading="ON THIS PAGE"
                     tweetCount={

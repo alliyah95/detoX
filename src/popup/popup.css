@@ -111,3 +111,15 @@ input[type="checkbox"]:checked::before {
 input[type="checkbox"]:checked {
     background: #0051ce;
 }
+
+.error-message-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.error-message {
+    color: #ce001a;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-style: italic;
+}
