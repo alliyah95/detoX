@@ -1,12 +1,50 @@
 interface LocalStorage {
-    detectedTweetsCount: number;
+    allTimeTweetCount?: number;
+    extensionEnabled?: boolean;
 }
 
 type LocalStorageKeys = keyof LocalStorage;
 
-const setStoredTweetCount = (detectedTweetsCount: number): Promise<void> => {
+// const resetDailyTweetCount = (): Promise<void> => {
+//     const newData = {
+//         dailyTweetCount: 0,
+//     };
+
+//     console.log("here");
+
+//     return new Promise((resolve) => {
+//         chrome.storage.local.set(newData, () => {
+//             console.log("reset func");
+//             resolve();
+//         });
+//     });
+// };
+
+const setExtensionState = (extensionEnabled: boolean): Promise<void> => {
+    return new Promise<void>((resolve) => {
+        const vals: LocalStorage = {
+            extensionEnabled,
+        };
+        chrome.storage.local.set(vals, () => {
+            resolve();
+        });
+    });
+};
+
+const getExtensionState = (): Promise<boolean> => {
+    return new Promise((resolve) => {
+        chrome.storage.local.get("extensionEnabled", (result) => {
+            const state = result.extensionEnabled;
+            resolve(state);
+        });
+    });
+};
+
+const setStoredAllTimeTweetCount = (
+    allTimeTweetCount: number
+): Promise<void> => {
     const vals: LocalStorage = {
-        detectedTweetsCount,
+        allTimeTweetCount,
     };
     return new Promise((resolve) => {
         chrome.storage.local.set(vals, () => {
@@ -15,13 +53,19 @@ const setStoredTweetCount = (detectedTweetsCount: number): Promise<void> => {
     });
 };
 
-const getStoredTweetCount = (): Promise<number> => {
-    const keys: LocalStorageKeys[] = ["detectedTweetsCount"];
+const getStoredAllTimeTweetCount = (): Promise<LocalStorage> => {
+    const keys: LocalStorageKeys[] = ["allTimeTweetCount"];
     return new Promise((resolve) => {
         chrome.storage.local.get(keys, (res: LocalStorage) => {
-            resolve(res.detectedTweetsCount);
+            const allTimeTweetCount = res.allTimeTweetCount;
+            resolve({ allTimeTweetCount });
         });
     });
 };
 
-export { LocalStorage, setStoredTweetCount, getStoredTweetCount };
+export {
+    setStoredAllTimeTweetCount,
+    getStoredAllTimeTweetCount,
+    setExtensionState,
+    getExtensionState,
+};
