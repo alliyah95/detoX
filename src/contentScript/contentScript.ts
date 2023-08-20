@@ -3,6 +3,9 @@ import {
     setStoredAllTimeTweetCount,
     getStoredAllTimeTweetCount,
     getExtensionState,
+    getCurrentUsername,
+    isAccountPrivate,
+    isPostedByCurrentUser,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -18,9 +21,14 @@ const detectNewTweets = async (): Promise<void> => {
     );
 
     for (let index = 0; index < elements.length; index++) {
+        const currentUser = `@${getCurrentUsername()}`;
         const tweet = elements[index] as HTMLDivElement;
 
-        if (tweet.hasAttribute("data-tweet-processed")) {
+        if (
+            isPostedByCurrentUser(tweet, currentUser) ||
+            isAccountPrivate(tweet) ||
+            tweet.hasAttribute("data-tweet-processed")
+        ) {
             continue;
         }
 

@@ -15,4 +15,44 @@ const getCurrentTab = async () => {
     return tab;
 };
 
-export { getCurrentTab, sendExtensionStateToContentScript };
+const getCurrentUsername = (): string => {
+    const loggedInIndicator = document.querySelector(
+        '[data-testid="SideNav_AccountSwitcher_Button"]'
+    );
+
+    if (loggedInIndicator) {
+        const usernameContainer = document.querySelector(
+            '[data-testid^="UserAvatar-Container-"]'
+        );
+
+        if (usernameContainer) {
+            const dataTestId = usernameContainer.getAttribute("data-testid");
+            const username = dataTestId.split("-").pop();
+            return username;
+        }
+    }
+};
+
+const isAccountPrivate = (tweet: HTMLDivElement): boolean => {
+    return (
+        tweet.querySelectorAll('[aria-label="Protected account"]').length > 0
+    );
+};
+
+const isPostedByCurrentUser = (
+    tweet: HTMLDivElement,
+    currentUser: string
+): boolean => {
+    const tweetContent = tweet.innerText.split("\n");
+    const tweetAuthor =
+        tweetContent[tweetContent[0].includes("reposted") ? 2 : 1];
+    return currentUser === tweetAuthor;
+};
+
+export {
+    getCurrentTab,
+    getCurrentUsername,
+    isAccountPrivate,
+    isPostedByCurrentUser,
+    sendExtensionStateToContentScript,
+};

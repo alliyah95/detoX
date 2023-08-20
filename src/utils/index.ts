@@ -1,5 +1,11 @@
 import { sendTweetToServer } from "./api";
-import { getCurrentTab, sendExtensionStateToContentScript } from "./general";
+import {
+    getCurrentTab,
+    getCurrentUsername,
+    sendExtensionStateToContentScript,
+    isAccountPrivate,
+    isPostedByCurrentUser,
+} from "./general";
 import {
     setExtensionState,
     getExtensionState,
@@ -15,4 +21,7 @@ export {
     getStoredAllTimeTweetCount,
     setStoredAllTimeTweetCount,
     getCurrentTab,
+    getCurrentUsername,
+    isAccountPrivate,
+    isPostedByCurrentUser,
 };
