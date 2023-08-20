@@ -39,9 +39,20 @@ const isAccountPrivate = (tweet: HTMLDivElement): boolean => {
     );
 };
 
+const isPostedByCurrentUser = (
+    tweet: HTMLDivElement,
+    currentUser: string
+): boolean => {
+    const tweetContent = tweet.innerText.split("\n");
+    const tweetAuthor =
+        tweetContent[tweetContent[0].includes("reposted") ? 2 : 1];
+    return currentUser === tweetAuthor;
+};
+
 export {
     getCurrentTab,
     getCurrentUsername,
     isAccountPrivate,
+    isPostedByCurrentUser,
     sendExtensionStateToContentScript,
 };

@@ -4,6 +4,7 @@ import {
     getCurrentUsername,
     sendExtensionStateToContentScript,
     isAccountPrivate,
+    isPostedByCurrentUser,
 } from "./general";
 import {
     setExtensionState,
@@ -22,4 +23,5 @@ export {
     getCurrentTab,
     getCurrentUsername,
     isAccountPrivate,
+    isPostedByCurrentUser,
 };
