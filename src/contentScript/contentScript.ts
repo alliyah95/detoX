@@ -1,9 +1,9 @@
-import { sendTweetToServer } from "../utils/api";
 import {
+    sendTweetToServer,
     setStoredAllTimeTweetCount,
     getStoredAllTimeTweetCount,
     getExtensionState,
-} from "../utils/storage";
+} from "../utils";
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;

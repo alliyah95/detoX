@@ -11,8 +11,8 @@ import {
 import {
     getExtensionState,
     getStoredAllTimeTweetCount,
-} from "../utils/storage";
-import { sendExtensionStateToContentScript } from "../utils/general";
+    sendExtensionStateToContentScript,
+} from "../utils";
 
 type CountState = "fetching" | "ready";
 

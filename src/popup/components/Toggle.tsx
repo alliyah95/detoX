@@ -1,5 +1,5 @@
 import React from "react";
-import { setExtensionState } from "../../utils/storage";
+import { setExtensionState } from "../../utils";
 
 interface ToggleProps {
     isOn: boolean;
