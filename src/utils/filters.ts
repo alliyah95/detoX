@@ -5,4 +5,20 @@ const isFromNewsOutlet = (tweet: HTMLDivElement): boolean => {
     return mediaDirectory.includes(tweetAuthor);
 };
 
-export { isFromNewsOutlet };
+const isAccountPrivate = (tweet: HTMLDivElement): boolean => {
+    return (
+        tweet.querySelectorAll('[aria-label="Protected account"]').length > 0
+    );
+};
+
+const isPostedByCurrentUser = (
+    tweet: HTMLDivElement,
+    currentUser: string
+): boolean => {
+    const tweetContent = tweet.innerText.split("\n");
+    const tweetAuthor =
+        tweetContent[tweetContent[0].includes("reposted") ? 2 : 1];
+    return currentUser === tweetAuthor;
+};
+
+export { isFromNewsOutlet, isAccountPrivate, isPostedByCurrentUser };
