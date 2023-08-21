@@ -12,6 +12,7 @@ import {
     setStoredAllTimeTweetCount,
     getStoredAllTimeTweetCount,
 } from "./storage";
+import { mediaDirectory } from "./media-directory";
 
 export {
     sendTweetToServer,
@@ -24,4 +25,5 @@ export {
     getCurrentUsername,
     isAccountPrivate,
     isPostedByCurrentUser,
+    mediaDirectory,
 };
