@@ -1,5 +1,8 @@
-const isNews = (tweetAuthor: string): boolean => {
-    return true;
+import { mediaDirectory, extractTweetAuthor } from "../utils";
+
+const isFromNewsOutlet = (tweet: HTMLDivElement): boolean => {
+    const tweetAuthor = extractTweetAuthor(tweet);
+    return mediaDirectory.includes(tweetAuthor);
 };
 
-export { isNews };
+export { isFromNewsOutlet };

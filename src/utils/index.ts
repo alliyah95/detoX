@@ -5,6 +5,7 @@ import {
     sendExtensionStateToContentScript,
     isAccountPrivate,
     isPostedByCurrentUser,
+    extractTweetAuthor,
 } from "./general";
 import {
     setExtensionState,
@@ -12,6 +13,7 @@ import {
     setStoredAllTimeTweetCount,
     getStoredAllTimeTweetCount,
 } from "./storage";
+import { isFromNewsOutlet } from "./filters";
 import { mediaDirectory } from "./media-directory";
 
 export {
@@ -23,7 +25,9 @@ export {
     setStoredAllTimeTweetCount,
     getCurrentTab,
     getCurrentUsername,
+    extractTweetAuthor,
     isAccountPrivate,
     isPostedByCurrentUser,
+    isFromNewsOutlet,
     mediaDirectory,
 };

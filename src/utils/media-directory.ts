@@ -16,6 +16,7 @@ const mediaDirectory = [
     "@gmanewsbreaking",
     "@HatawTabloid",
     "@inquirer_libre",
+    "@inquirerdotnet",
     "@MalayaNews",
     "@ShimbunTv",
     "@TheManilaTimes",
