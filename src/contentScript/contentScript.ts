@@ -6,6 +6,7 @@ import {
     getCurrentUsername,
     isAccountPrivate,
     isPostedByCurrentUser,
+    isFromNewsOutlet,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -25,6 +26,7 @@ const detectNewTweets = async (): Promise<void> => {
         const tweet = elements[index] as HTMLDivElement;
 
         if (
+            isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
             tweet.hasAttribute("data-tweet-processed")
