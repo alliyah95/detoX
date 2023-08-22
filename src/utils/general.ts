@@ -141,6 +141,17 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     return overlayElement;
 };
 
+const getTwitterTheme = (): string => {
+    const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
+    if (bodyBackgroundColor === "rgb(21, 32, 43)") {
+        return "dim";
+    } else if (bodyBackgroundColor === "rgb(255, 255, 255)") {
+        return "white";
+    } else {
+        return "dark";
+    }
+};
+
 export {
     getCurrentTab,
     getCurrentUsername,
@@ -148,4 +159,5 @@ export {
     extractTweetAuthor,
     extractTweetBody,
     createOverlayElement,
+    getTwitterTheme,
 };

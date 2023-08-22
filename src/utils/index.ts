@@ -6,6 +6,7 @@ import {
     extractTweetAuthor,
     extractTweetBody,
     createOverlayElement,
+    getTwitterTheme,
 } from "./general";
 import {
     setExtensionState,
@@ -32,6 +33,7 @@ export {
     extractTweetAuthor,
     extractTweetBody,
     createOverlayElement,
+    getTwitterTheme,
     isAccountPrivate,
     isPostedByCurrentUser,
     isFromNewsOutlet,

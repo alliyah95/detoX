@@ -9,6 +9,7 @@ import {
     isFromNewsOutlet,
     extractTweetBody,
     createOverlayElement,
+    getTwitterTheme,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -19,10 +20,15 @@ getStoredAllTimeTweetCount().then((count) => {
 });
 
 const detectNewTweets = async (): Promise<void> => {
-    const elements = document.getElementsByClassName(
-        "css-1dbjc4n r-1igl3o0 r-qklmqi r-1adg3ll r-1ny4l3l"
-    );
+    const theme = getTwitterTheme();
+    const themes = {
+        white: "css-1dbjc4n r-j5o65s r-qklmqi r-1adg3ll r-1ny4l3l",
+        dim: "css-1dbjc4n r-1ila09b r-qklmqi r-1adg3ll r-1ny4l3l",
+        dark: "css-1dbjc4n r-1igl3o0 r-qklmqi r-1adg3ll r-1ny4l3l",
+    };
+    const classNames = themes[theme] || themes.dark;
 
+    const elements = document.getElementsByClassName(classNames);
     for (let index = 0; index < elements.length; index++) {
         const currentUser = `@${getCurrentUsername()}`;
         const tweet = elements[index] as HTMLDivElement;
