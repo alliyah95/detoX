@@ -40,9 +40,33 @@ const extractTweetAuthor = (tweet: HTMLDivElement): string => {
     return tweetAuthor;
 };
 
+const extractTweetBody = (tweet: HTMLDivElement): string => {
+    const tweetBodyWrapper = tweet.querySelector(
+        'div.css-1dbjc4n > div[data-testid="tweetText"]'
+    );
+
+    try {
+        const spanElements = tweetBodyWrapper.getElementsByTagName("span");
+        const tweetBody = [];
+
+        [...spanElements].forEach((element: HTMLSpanElement) => {
+            const text = element.innerText;
+            const noNewLines = text.replace(/\n/g, " ");
+
+            if (noNewLines.trim().length > 0) {
+                tweetBody.push(noNewLines);
+            }
+        });
+
+        return tweetBody.join(" ");
+    } catch (err) {
+        return "";
+    }
+};
 export {
     getCurrentTab,
     getCurrentUsername,
     sendExtensionStateToContentScript,
     extractTweetAuthor,
+    extractTweetBody,
 };

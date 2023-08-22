@@ -7,6 +7,7 @@ import {
     isAccountPrivate,
     isPostedByCurrentUser,
     isFromNewsOutlet,
+    extractTweetBody,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -26,6 +27,8 @@ const detectNewTweets = async (): Promise<void> => {
         const tweet = elements[index] as HTMLDivElement;
 
         if (
+            // TODO
+            // check if tweet is election-related before sending to server
             isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
@@ -36,10 +39,9 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
-            // TODO
-            // check if tweet is election-related before sending to server
+            const tweetBody = extractTweetBody(tweet);
+            const result = await sendTweetToServer(tweetBody);
 
-            const result = await sendTweetToServer(tweet.textContent);
             if (result === 1) {
                 // TODO
                 // hide tweet instead of just changing the background color

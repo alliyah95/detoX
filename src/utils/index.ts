@@ -4,6 +4,7 @@ import {
     getCurrentUsername,
     sendExtensionStateToContentScript,
     extractTweetAuthor,
+    extractTweetBody,
 } from "./general";
 import {
     setExtensionState,
@@ -28,6 +29,7 @@ export {
     getCurrentTab,
     getCurrentUsername,
     extractTweetAuthor,
+    extractTweetBody,
     isAccountPrivate,
     isPostedByCurrentUser,
     isFromNewsOutlet,
