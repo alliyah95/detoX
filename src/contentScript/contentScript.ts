@@ -46,7 +46,11 @@ const detectNewTweets = async (): Promise<void> => {
             if (result === 1) {
                 // create and style overlay element
                 const overlayElement = createOverlayElement();
+
                 tweet.style.position = "relative";
+                tweet.style.paddingTop = "20px";
+                tweet.style.paddingBottom = "24px";
+
                 tweet.appendChild(overlayElement);
 
                 sessionTweetCount++;
