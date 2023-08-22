@@ -15,9 +15,7 @@ const isPostedByCurrentUser = (
     tweet: HTMLDivElement,
     currentUser: string
 ): boolean => {
-    const tweetContent = tweet.innerText.split("\n");
-    const tweetAuthor =
-        tweetContent[tweetContent[0].includes("reposted") ? 2 : 1];
+    const tweetAuthor = extractTweetAuthor(tweet);
     return currentUser === tweetAuthor;
 };
 
