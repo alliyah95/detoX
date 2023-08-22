@@ -70,7 +70,7 @@ const handleViewBtn = (overlayId: string): void => {
     const targetElement = document.querySelector(
         `[data-overlay-for="${overlayId}"]`
     ) as HTMLDivElement;
-    targetElement.style.display = "none";
+    targetElement.remove();
 };
 
 const createMessageElement = (): HTMLParagraphElement => {
