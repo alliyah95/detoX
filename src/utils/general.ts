@@ -63,10 +63,37 @@ const extractTweetBody = (tweet: HTMLDivElement): string => {
         return "";
     }
 };
+
+const createOverlayElement = (): HTMLDivElement => {
+    const overlayElement = document.createElement("div");
+    overlayElement.style.position = "absolute";
+    overlayElement.style.top = "0";
+    overlayElement.style.left = "0";
+    overlayElement.style.width = "100%";
+    overlayElement.style.height = "100%";
+    overlayElement.style.backgroundColor = "#0051ce";
+
+    overlayElement.style.display = "flex";
+    overlayElement.style.alignItems = "center";
+    overlayElement.style.justifyContent = "center";
+
+    const message = document.createElement("p");
+    message.innerHTML =
+        "This tweet has been hidden by detoX as <br>it potentially contains hateful content";
+    message.style.color = "#ffffff";
+    message.style.padding = "20px";
+    message.style.textAlign = "center";
+    message.style.fontFamily = "Arial, sans-serif";
+
+    overlayElement.appendChild(message);
+    return overlayElement;
+};
+
 export {
     getCurrentTab,
     getCurrentUsername,
     sendExtensionStateToContentScript,
     extractTweetAuthor,
     extractTweetBody,
+    createOverlayElement,
 };

@@ -8,6 +8,7 @@ import {
     isPostedByCurrentUser,
     isFromNewsOutlet,
     extractTweetBody,
+    createOverlayElement,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -43,9 +44,10 @@ const detectNewTweets = async (): Promise<void> => {
             const result = await sendTweetToServer(tweetBody);
 
             if (result === 1) {
-                // TODO
-                // hide tweet instead of just changing the background color
-                tweet.style.backgroundColor = "red";
+                // create and style overlay element
+                const overlayElement = createOverlayElement();
+                tweet.style.position = "relative";
+                tweet.appendChild(overlayElement);
 
                 sessionTweetCount++;
                 setStoredAllTimeTweetCount(

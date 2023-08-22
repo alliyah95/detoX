@@ -5,6 +5,7 @@ import {
     sendExtensionStateToContentScript,
     extractTweetAuthor,
     extractTweetBody,
+    createOverlayElement,
 } from "./general";
 import {
     setExtensionState,
@@ -30,6 +31,7 @@ export {
     getCurrentUsername,
     extractTweetAuthor,
     extractTweetBody,
+    createOverlayElement,
     isAccountPrivate,
     isPostedByCurrentUser,
     isFromNewsOutlet,
