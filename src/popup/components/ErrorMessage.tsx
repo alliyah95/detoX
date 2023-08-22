@@ -1,12 +1,13 @@
 import React from "react";
 
-const ErrorMessage: React.FC<{}> = () => {
+interface ErrorMessageProps {
+    message: string;
+}
+
+const ErrorMessage: React.FC<ErrorMessageProps> = ({ message }) => {
     return (
         <div className="error-message-wrapper text-center">
-            <p className="error-message">
-                The current tab is not on Twitter. Please return to Twitter to
-                continue detecting hate speech.
-            </p>
+            <p className="error-message">{message}</p>
         </div>
     );
 };

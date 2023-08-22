@@ -36,7 +36,6 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
-
             // TODO
             // check if tweet is election-related before sending to server
 
@@ -51,7 +50,10 @@ const detectNewTweets = async (): Promise<void> => {
                     initialAllTimeTweetCount + sessionTweetCount
                 );
             }
-        } catch (err) {}
+            chrome.runtime.sendMessage({ action: "tweetProcessingSuccess" });
+        } catch (err) {
+            chrome.runtime.sendMessage({ action: "tweetProcessingError" });
+        }
     }
 };
 
