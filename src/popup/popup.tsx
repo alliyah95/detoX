@@ -26,6 +26,7 @@ const App: React.FC<{}> = () => {
     const [countState, setCountState] = useState<CountState>("fetching");
     const [extensionState, setExtensionState] = useState<boolean | null>(false);
     const [isTabOnTwitter, setIsTabOnTwitter] = useState<boolean>(true);
+    const [errorOccured, setErrorOccurred] = useState<boolean>(false);
 
     const checkActiveTab = async (): Promise<void> => {
         const activeTab = await getCurrentTab();
@@ -35,10 +36,21 @@ const App: React.FC<{}> = () => {
         );
     };
 
+    const initializeErrorListener = (): void => {
+        const handleTweetProcessingState = (message) => {
+            if (message.action === "tweetProcessingError") {
+                setErrorOccurred(true);
+            } else if (message.action === "tweetProcessingSuccess") {
+                setErrorOccurred(false);
+            }
+        };
+
+        chrome.runtime.onMessage.addListener(handleTweetProcessingState);
+    };
+
     useEffect(() => {
         getStoredAllTimeTweetCount().then((tweetCounts) => {
             const allTimeCount = tweetCounts.allTimeTweetCount;
-
             setAllTimeTweetCount(allTimeCount);
             setCountState("ready");
         });
@@ -48,6 +60,7 @@ const App: React.FC<{}> = () => {
         });
 
         checkActiveTab();
+        initializeErrorListener();
 
         const handleStorageChange = (changes: any, namespace: string) => {
             if (changes.allTimeTweetCount && namespace === "local") {
@@ -79,7 +92,26 @@ const App: React.FC<{}> = () => {
             </HeaderWrapper>
 
             <BodyWrapper>
-                {!isTabOnTwitter && <ErrorMessage />}
+                {!isTabOnTwitter && (
+                    <ErrorMessage
+                        message="The current tab is not on Twitter. Please return to Twitter to
+                continue detecting hate speech."
+                        key={1}
+                    />
+                )}
+                {isTabOnTwitter && errorOccured && (
+                    <ErrorMessage
+                        message="The detoX API is currently down. Please try again later."
+                        key={2}
+                    />
+                )}
+
+                <div className="heading-wrapper bg-white">
+                    <h2 className="font-bold text-center text-blue">
+                        Hidden Tweets
+                    </h2>
+                </div>
+
                 <CounterCard
                     heading="ON THIS PAGE"
                     tweetCount={

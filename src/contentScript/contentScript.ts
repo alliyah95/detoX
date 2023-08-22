@@ -6,6 +6,9 @@ import {
     getCurrentUsername,
     isAccountPrivate,
     isPostedByCurrentUser,
+    isFromNewsOutlet,
+    extractTweetBody,
+    createOverlayElement,
 } from "../utils";
 
 let initialAllTimeTweetCount = 0;
@@ -25,6 +28,9 @@ const detectNewTweets = async (): Promise<void> => {
         const tweet = elements[index] as HTMLDivElement;
 
         if (
+            // TODO
+            // check if tweet is election-related before sending to server
+            isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
             tweet.hasAttribute("data-tweet-processed")
@@ -34,22 +40,25 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
+            const tweetBody = extractTweetBody(tweet);
+            const result = await sendTweetToServer(tweetBody);
 
-            // TODO
-            // check if tweet is election-related before sending to server
-
-            const result = await sendTweetToServer(tweet.textContent);
             if (result === 1) {
-                // TODO
-                // hide tweet instead of just changing the background color
-                tweet.style.backgroundColor = "red";
+                const overlayElement = createOverlayElement(tweet);
+                tweet.style.position = "relative";
+                tweet.style.paddingTop = "20px";
+                tweet.style.paddingBottom = "24px";
+                tweet.appendChild(overlayElement);
 
                 sessionTweetCount++;
                 setStoredAllTimeTweetCount(
                     initialAllTimeTweetCount + sessionTweetCount
                 );
             }
-        } catch (err) {}
+            chrome.runtime.sendMessage({ action: "tweetProcessingSuccess" });
+        } catch (err) {
+            chrome.runtime.sendMessage({ action: "tweetProcessingError" });
+        }
     }
 };
 
