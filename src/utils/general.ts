@@ -73,20 +73,7 @@ const handleViewBtn = (overlayId: string): void => {
     targetElement.style.display = "none";
 };
 
-const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
-    const overlayElement = document.createElement("div");
-    overlayElement.style.position = "absolute";
-    overlayElement.style.top = "0";
-    overlayElement.style.left = "0";
-    overlayElement.style.width = "100%";
-    overlayElement.style.height = "100%";
-    overlayElement.style.backgroundColor = "#1D9BF0";
-
-    overlayElement.style.display = "flex";
-    overlayElement.style.flexDirection = "column";
-    overlayElement.style.alignItems = "center";
-    overlayElement.style.justifyContent = "center";
-
+const createMessageElement = (): HTMLParagraphElement => {
     const message = document.createElement("p");
     message.innerHTML =
         "This tweet has been hidden by <b><span style='text-decoration: underline;'>detoX<span></b> as it potentially contains hateful content.";
@@ -97,6 +84,10 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     message.style.fontSize = "14px";
     message.style.maxWidth = "300px";
 
+    return message;
+};
+
+const createBtnElement = (): HTMLButtonElement => {
     const viewBtn = document.createElement("button");
     viewBtn.style.backgroundColor = "#ffffff";
     viewBtn.style.color = "#1D9BF0";
@@ -114,6 +105,26 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     viewBtn.style.fontSize = "14px";
     viewBtn.style.fontWeight = "bold";
     viewBtn.textContent = "Show tweet anyway";
+
+    return viewBtn;
+};
+
+const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
+    const overlayElement = document.createElement("div");
+    overlayElement.style.position = "absolute";
+    overlayElement.style.top = "0";
+    overlayElement.style.left = "0";
+    overlayElement.style.width = "100%";
+    overlayElement.style.height = "100%";
+    overlayElement.style.backgroundColor = "#1D9BF0";
+
+    overlayElement.style.display = "flex";
+    overlayElement.style.flexDirection = "column";
+    overlayElement.style.alignItems = "center";
+    overlayElement.style.justifyContent = "center";
+
+    const message = createMessageElement();
+    const viewBtn = createBtnElement();
 
     const overlayId = nanoid();
     overlayElement.setAttribute("data-overlay-for", overlayId);
