@@ -1,3 +1,5 @@
+import { nanoid } from "nanoid";
+
 const sendExtensionStateToContentScript = (state: boolean) => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const activeTab = tabs[0];
@@ -64,23 +66,17 @@ const extractTweetBody = (tweet: HTMLDivElement): string => {
     }
 };
 
-const createOverlayElement = (): HTMLDivElement => {
-    const overlayElement = document.createElement("div");
-    overlayElement.style.position = "absolute";
-    overlayElement.style.top = "0";
-    overlayElement.style.left = "0";
-    overlayElement.style.width = "100%";
-    overlayElement.style.height = "100%";
-    overlayElement.style.backgroundColor = "#1D9BF0";
+const handleViewBtn = (overlayId: string): void => {
+    const targetElement = document.querySelector(
+        `[data-overlay-for="${overlayId}"]`
+    ) as HTMLDivElement;
+    targetElement.remove();
+};
 
-    overlayElement.style.display = "flex";
-    overlayElement.style.flexDirection = "column";
-    overlayElement.style.alignItems = "center";
-    overlayElement.style.justifyContent = "center";
-
+const createMessageElement = (): HTMLParagraphElement => {
     const message = document.createElement("p");
     message.innerHTML =
-        "This tweet has been hidden by <b><span style='text-decoration: underline;'>detoX<span></b> as it potentially contains hateful content";
+        "This tweet has been hidden by <b><span style='text-decoration: underline;'>detoX<span></b> as it potentially contains hateful content.";
     message.style.color = "#ffffff";
     message.style.padding = "0 20px";
     message.style.textAlign = "center";
@@ -88,6 +84,10 @@ const createOverlayElement = (): HTMLDivElement => {
     message.style.fontSize = "14px";
     message.style.maxWidth = "300px";
 
+    return message;
+};
+
+const createBtnElement = (): HTMLButtonElement => {
     const viewBtn = document.createElement("button");
     viewBtn.style.backgroundColor = "#ffffff";
     viewBtn.style.color = "#1D9BF0";
@@ -106,8 +106,38 @@ const createOverlayElement = (): HTMLDivElement => {
     viewBtn.style.fontWeight = "bold";
     viewBtn.textContent = "Show tweet anyway";
 
+    return viewBtn;
+};
+
+const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
+    const overlayElement = document.createElement("div");
+    overlayElement.style.position = "absolute";
+    overlayElement.style.top = "0";
+    overlayElement.style.left = "0";
+    overlayElement.style.width = "100%";
+    overlayElement.style.height = "100%";
+    overlayElement.style.backgroundColor = "#1D9BF0";
+
+    overlayElement.style.display = "flex";
+    overlayElement.style.flexDirection = "column";
+    overlayElement.style.alignItems = "center";
+    overlayElement.style.justifyContent = "center";
+
+    const message = createMessageElement();
+    const viewBtn = createBtnElement();
+
+    const overlayId = nanoid();
+    overlayElement.setAttribute("data-overlay-for", overlayId);
+    viewBtn.setAttribute("data-btn-for", overlayId);
+    viewBtn.addEventListener("click", () => {
+        handleViewBtn(overlayId);
+        tweet.style.paddingTop = "initial";
+        tweet.style.paddingBottom = "initial";
+    });
+
     overlayElement.appendChild(message);
     overlayElement.appendChild(viewBtn);
+
     return overlayElement;
 };
 
