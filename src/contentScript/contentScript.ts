@@ -47,21 +47,26 @@ const detectNewTweets = async (): Promise<void> => {
         try {
             tweet.setAttribute("data-tweet-processed", "true");
             const tweetBody = extractTweetBody(tweet);
-            const result = await sendTweetToServer(tweetBody);
 
-            if (result === 1) {
-                const overlayElement = createOverlayElement(tweet);
-                tweet.style.position = "relative";
-                tweet.style.paddingTop = "20px";
-                tweet.style.paddingBottom = "24px";
-                tweet.appendChild(overlayElement);
+            if (tweetBody) {
+                const result = await sendTweetToServer(tweetBody);
 
-                sessionTweetCount++;
-                setStoredAllTimeTweetCount(
-                    initialAllTimeTweetCount + sessionTweetCount
-                );
+                if (result === 1) {
+                    const overlayElement = createOverlayElement(tweet);
+                    tweet.style.position = "relative";
+                    tweet.style.paddingTop = "20px";
+                    tweet.style.paddingBottom = "24px";
+                    tweet.appendChild(overlayElement);
+
+                    sessionTweetCount++;
+                    setStoredAllTimeTweetCount(
+                        initialAllTimeTweetCount + sessionTweetCount
+                    );
+                }
+                chrome.runtime.sendMessage({
+                    action: "tweetProcessingSuccess",
+                });
             }
-            chrome.runtime.sendMessage({ action: "tweetProcessingSuccess" });
         } catch (err) {
             chrome.runtime.sendMessage({ action: "tweetProcessingError" });
         }

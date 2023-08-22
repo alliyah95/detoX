@@ -60,9 +60,16 @@ const extractTweetBody = (tweet: HTMLDivElement): string => {
             }
         });
 
-        return tweetBody.join(" ");
+        const tweetBodyString = tweetBody.join(" ");
+        const regex = /^Show \d+ tweets$/;
+
+        if (regex.test(tweetBodyString)) {
+            return " ";
+        }
+
+        return tweetBodyString;
     } catch (err) {
-        return "";
+        return " ";
     }
 };
 
