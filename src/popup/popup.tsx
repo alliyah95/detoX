@@ -101,10 +101,17 @@ const App: React.FC<{}> = () => {
                 )}
                 {isTabOnTwitter && errorOccured && (
                     <ErrorMessage
-                        message="The detoX API may be currently down. Please try again later."
+                        message="The detoX API is currently down. Please try again later."
                         key={2}
                     />
                 )}
+
+                <div className="heading-wrapper bg-white">
+                    <h2 className="font-bold text-center text-blue">
+                        Hidden Tweets
+                    </h2>
+                </div>
+
                 <CounterCard
                     heading="ON THIS PAGE"
                     tweetCount={

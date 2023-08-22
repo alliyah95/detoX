@@ -41,7 +41,7 @@ body {
 
 /* SPECIFIC */
 .body-wrapper {
-    padding: 64px 32px;
+    padding: 38px 32px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -113,13 +113,16 @@ input[type="checkbox"]:checked {
 }
 
 .error-message-wrapper {
-    display: flex;
-    align-items: center;
+    background-color: #0051ce;
+    color: #fff;
+    border-radius: 6px;
+    padding: 20px;
 }
 
 .error-message {
-    color: #ce001a;
-    padding-top: 10px;
-    padding-bottom: 10px;
     font-style: italic;
+}
+
+.error-message-icon {
+    margin-bottom: 4px;
 }
