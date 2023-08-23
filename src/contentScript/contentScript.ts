@@ -81,9 +81,13 @@ const detectNewTweets = async (): Promise<void> => {
 // };
 
 const scrollFunction = (): void => {
-    scroller = setInterval(() => {
-        window.scrollBy(0, 10);
-    }, 1000);
+    chrome.runtime.sendMessage({ action: 'checkTwitter' }, (response) => {
+        if (response.isTwitter) {
+            scroller = setInterval(() => {
+                window.scrollBy(0, 10);
+            }, 1000);
+        }
+    });
 };
 
 const enableExtension = (): void => {
