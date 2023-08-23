@@ -14,6 +14,7 @@ import {
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
+let scroller;
 
 getStoredAllTimeTweetCount().then((count) => {
     initialAllTimeTweetCount = count.allTimeTweetCount;
@@ -80,7 +81,7 @@ const detectNewTweets = async (): Promise<void> => {
 // };
 
 const scrollFunction = (): void => {
-    const scroller = setInterval(() => {
+    scroller = setInterval(() => {
         window.scrollBy(0, 10);
     }, 1000);
 };
@@ -113,8 +114,10 @@ const setInitialExtensionState = async (): Promise<void> => {
     const isExtensionEnabled = await getExtensionState();
     if (isExtensionEnabled) {
         enableExtension();
+        scrollFunction();
     } else {
         disableExtension();
+        clearInterval(scroller)
     }
 };
 
@@ -125,8 +128,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         const state = message.state;
         if (state) {
             enableExtension();
+            scrollFunction();
         } else {
             disableExtension();
+            clearInterval(scroller);
         }
     }
 });
