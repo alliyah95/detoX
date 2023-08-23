@@ -73,9 +73,15 @@ const detectNewTweets = async (): Promise<void> => {
     }
 };
 
+// const scrollFunction = (): void => {
+//     setTimeout(() => {
+//         window.scrollBy(10, 10);
+//     }, 1000);
+// };
+
 const scrollFunction = (): void => {
-    setTimeout(() => {
-        window.scrollBy(10, 10);
+    const scroller = setInterval(() => {
+        window.scrollBy(0, 10);
     }, 1000);
 };
 
