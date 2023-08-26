@@ -84,7 +84,7 @@ const scrollFunction = (): void => {
     chrome.runtime.sendMessage({ action: 'checkTwitter' }, (response) => {
         if (response.isTwitter) {
             scroller = setInterval(() => {
-                window.scrollBy(0, 10);
+                window.scrollBy(0, 1/2);
             }, 1000);
         }
     });
