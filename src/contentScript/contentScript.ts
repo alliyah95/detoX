@@ -11,6 +11,7 @@ import {
     createOverlayElement,
     getTwitterTheme,
 } from "../utils";
+import { isElectionRelated } from "../utils/filters";
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
@@ -36,6 +37,7 @@ const detectNewTweets = async (): Promise<void> => {
         if (
             // TODO
             // check if tweet is election-related before sending to server
+            !isElectionRelated(tweet) || // I think done (?)
             isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
