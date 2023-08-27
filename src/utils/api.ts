@@ -1,4 +1,4 @@
-const API_ENDPOINT = "http://127.0.0.1:8000/api/v1/fake_detect";
+const API_ENDPOINT = "http://127.0.0.1:8000/api/v1/detect";
 
 const sendTweetToServer = async (content: string) => {
     const response = await fetch(`${API_ENDPOINT}?content=${content}`);
