@@ -10,8 +10,8 @@ import {
     extractTweetBody,
     createOverlayElement,
     getTwitterTheme,
+    isElectionRelated,
 } from "../utils";
-import { isElectionRelated } from "../utils/filters";
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
