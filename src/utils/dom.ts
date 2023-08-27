@@ -41,10 +41,19 @@ const extractTweetBody = (
         });
 
         const extractedHashtags = text.replace(/(^|\s)(#)+/g, "$1 ");
-        const maskedUsernames = extractedHashtags.replace(
+        let maskedUsernames = extractedHashtags.replace(
             /@\w+\b/g,
             "[USERNAME]"
         );
+
+        const urlRegex = /https?:\/\/\S+/g;
+        const urls = maskedUsernames.match(urlRegex);
+        if (urls) {
+            urls.forEach((url) => {
+                maskedUsernames = maskedUsernames.replace(url, "[URL]");
+            });
+        }
+
         return maskedUsernames;
     } catch (err) {
         return " ";
