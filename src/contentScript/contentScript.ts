@@ -48,7 +48,10 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
-            const tweetBody = extractTweetBody(tweet);
+            const tweetBodyWrapper = tweet.querySelector(
+                'div.css-1dbjc4n > div[data-testid="tweetText"]'
+            ) as HTMLDivElement;
+            const tweetBody = extractTweetBody(tweetBodyWrapper);
 
             if (tweetBody) {
                 const result = await sendTweetToServer(tweetBody);
@@ -82,10 +85,10 @@ const detectNewTweets = async (): Promise<void> => {
 // };
 
 const scrollFunction = (): void => {
-    chrome.runtime.sendMessage({ action: 'checkTwitter' }, (response) => {
+    chrome.runtime.sendMessage({ action: "checkTwitter" }, (response) => {
         if (response.isTwitter) {
             setInterval(() => {
-                window.scrollBy(0, 1/2);
+                window.scrollBy(0, 1 / 2);
             }, 1000);
         }
     });

@@ -42,32 +42,31 @@ const extractTweetAuthor = (tweet: HTMLDivElement): string => {
     return tweetAuthor;
 };
 
-const extractTweetBody = (tweet: HTMLDivElement): string => {
-    const tweetBodyWrapper = tweet.querySelector(
-        'div.css-1dbjc4n > div[data-testid="tweetText"]'
-    );
-
+const extractTweetBody = (
+    tweetBodyWrapper: HTMLDivElement | Node | ChildNode
+): string => {
     try {
-        const spanElements = tweetBodyWrapper.getElementsByTagName("span");
-        const tweetBody = [];
+        let text = "";
+        const childNodes = tweetBodyWrapper.childNodes;
 
-        [...spanElements].forEach((element: HTMLSpanElement) => {
-            const text = element.innerText;
-            const noNewLines = text.replace(/\n/g, " ");
-
-            if (noNewLines.trim().length > 0) {
-                tweetBody.push(noNewLines);
+        childNodes.forEach((child) => {
+            if (child.nodeType === Node.TEXT_NODE) {
+                text += child.textContent.replace(/\n/g, "");
+            } else if (child.nodeType === Node.ELEMENT_NODE) {
+                text += extractTweetBody(child);
             }
         });
 
-        const tweetBodyString = tweetBody.join(" ");
-        const regex = /^Show \d+ tweets$/;
+        return text;
 
-        if (regex.test(tweetBodyString)) {
-            return " ";
-        }
+        // const tweetBodyString = tweetBody.join(" ");
+        // const regex = /^Show \d+ tweets$/;
 
-        return tweetBodyString;
+        // if (regex.test(tweetBodyString)) {
+        //     return " ";
+        // }
+
+        // return tweetBodyString;
     } catch (err) {
         return " ";
     }
