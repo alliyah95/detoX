@@ -5,8 +5,8 @@
 }
 
 body {
-    height: 500px;
-    width: 400px;
+    height: 400px;
+    width: 320px;
     background-color: #dce0e8;
     font-family: "Inter";
 }
@@ -41,7 +41,7 @@ body {
 
 /* SPECIFIC */
 .body-wrapper {
-    padding: 38px 32px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -54,23 +54,34 @@ body {
 }
 
 .header__title {
-    font-size: 18px;
+    font-size: 16px;
+}
+
+.logo-title-wrapper {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.header__logo {
+    height: 24px;
+    width: 24px;
 }
 
 .counter-card,
 .heading-wrapper {
     border-radius: 6px;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 14px;
+    padding-bottom: 14px;
 }
 
 .counter-card__title {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 8px;
 }
 
 .counter-card__count {
-    font-size: 54px;
+    font-size: 42px;
 }
 
 .checkbox__wrapper {
@@ -116,14 +127,15 @@ input[type="checkbox"]:checked {
     background-color: #0051ce;
     color: #fff;
     border-radius: 6px;
-    padding: 20px;
+    padding: 16px;
 }
 
 .error-message {
     font-style: italic;
+    max-width: 300px;
+    margin: 0 auto;
 }
 
 .error-message-icon {
     margin-bottom: 4px;
 }
-

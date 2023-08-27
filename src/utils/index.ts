@@ -1,12 +1,5 @@
 import { sendTweetToServer } from "./api";
-import {
-    getCurrentTab,
-    getCurrentUsername,
-    sendExtensionStateToContentScript,
-    extractTweetAuthor,
-    extractTweetBody,
-    createOverlayElement,
-} from "./general";
+import { getCurrentTab, sendExtensionStateToContentScript } from "./general";
 import {
     setExtensionState,
     getExtensionState,
@@ -14,11 +7,19 @@ import {
     getStoredAllTimeTweetCount,
 } from "./storage";
 import {
+    isElectionRelated,
     isFromNewsOutlet,
     isAccountPrivate,
     isPostedByCurrentUser,
 } from "./filters";
 import { mediaDirectory } from "./media-directory";
+import {
+    getCurrentUsername,
+    extractTweetAuthor,
+    extractTweetBody,
+    createOverlayElement,
+    getTwitterTheme,
+} from "./dom";
 
 export {
     sendTweetToServer,
@@ -32,6 +33,8 @@ export {
     extractTweetAuthor,
     extractTweetBody,
     createOverlayElement,
+    getTwitterTheme,
+    isElectionRelated,
     isAccountPrivate,
     isPostedByCurrentUser,
     isFromNewsOutlet,

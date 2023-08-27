@@ -5,6 +5,14 @@ chrome.runtime.onInstalled.addListener(() => {
     setExtensionState(true);
 });
 
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+    if (request.action === 'checkTwitter') {
+        const currentTab = sender.tab;
+        const isTwitter = currentTab && currentTab.url && currentTab.url.includes('twitter.com');
+        sendResponse({ isTwitter });
+    }
+});
+
 // TODO change UTC hours to 4
 // const utcTime = new Date();
 // utcTime.setUTCHours(2);

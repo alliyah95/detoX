@@ -5,21 +5,6 @@ interface LocalStorage {
 
 type LocalStorageKeys = keyof LocalStorage;
 
-// const resetDailyTweetCount = (): Promise<void> => {
-//     const newData = {
-//         dailyTweetCount: 0,
-//     };
-
-//     console.log("here");
-
-//     return new Promise((resolve) => {
-//         chrome.storage.local.set(newData, () => {
-//             console.log("reset func");
-//             resolve();
-//         });
-//     });
-// };
-
 const setExtensionState = (extensionEnabled: boolean): Promise<void> => {
     return new Promise<void>((resolve) => {
         const vals: LocalStorage = {
