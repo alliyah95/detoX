@@ -11,10 +11,10 @@ import {
     createOverlayElement,
     getTwitterTheme,
 } from "../utils";
+import { isElectionRelated } from "../utils/filters";
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
-let scroller;
 
 getStoredAllTimeTweetCount().then((count) => {
     initialAllTimeTweetCount = count.allTimeTweetCount;
@@ -37,6 +37,7 @@ const detectNewTweets = async (): Promise<void> => {
         if (
             // TODO
             // check if tweet is election-related before sending to server
+            !isElectionRelated(tweet) || // I think done (?)
             isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
@@ -83,8 +84,8 @@ const detectNewTweets = async (): Promise<void> => {
 const scrollFunction = (): void => {
     chrome.runtime.sendMessage({ action: 'checkTwitter' }, (response) => {
         if (response.isTwitter) {
-            scroller = setInterval(() => {
-                window.scrollBy(0, 10);
+            setInterval(() => {
+                window.scrollBy(0, 1/2);
             }, 1000);
         }
     });
@@ -92,7 +93,6 @@ const scrollFunction = (): void => {
 
 const enableExtension = (): void => {
     document.addEventListener("DOMContentLoaded", detectNewTweets);
-    window.addEventListener("load", scrollFunction);
     window.addEventListener("scroll", detectNewTweets);
 
     // const handleStorageChange = (changes: any, namespace: string) => {
@@ -110,7 +110,6 @@ const enableExtension = (): void => {
 
 const disableExtension = (): void => {
     document.removeEventListener("DOMContentLoaded", detectNewTweets);
-    window.removeEventListener("load", scrollFunction);
     window.removeEventListener("scroll", detectNewTweets);
 };
 
@@ -121,7 +120,6 @@ const setInitialExtensionState = async (): Promise<void> => {
         scrollFunction();
     } else {
         disableExtension();
-        clearInterval(scroller)
     }
 };
 
@@ -135,7 +133,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             scrollFunction();
         } else {
             disableExtension();
-            clearInterval(scroller);
         }
     }
 });

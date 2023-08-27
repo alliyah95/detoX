@@ -1,4 +1,16 @@
-import { mediaDirectory, extractTweetAuthor } from "../utils";
+import { mediaDirectory, extractTweetAuthor, extractTweetBody} from "../utils";
+import { electionDirectory } from "./election-directory";
+
+const isElectionRelated = (tweet: HTMLDivElement): boolean => {
+    const tweetBody = extractTweetBody(tweet);
+
+        for (const substring of electionDirectory) {
+            if (String(tweetBody).toLowerCase().includes(substring.toLowerCase())) {
+                return true;
+            }
+        }
+        return false;
+}
 
 const isFromNewsOutlet = (tweet: HTMLDivElement): boolean => {
     const tweetAuthor = extractTweetAuthor(tweet);
@@ -19,4 +31,4 @@ const isPostedByCurrentUser = (
     return currentUser === tweetAuthor;
 };
 
-export { isFromNewsOutlet, isAccountPrivate, isPostedByCurrentUser };
+export { isElectionRelated, isFromNewsOutlet, isAccountPrivate, isPostedByCurrentUser };
