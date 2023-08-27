@@ -10,8 +10,8 @@ import {
     extractTweetBody,
     createOverlayElement,
     getTwitterTheme,
+    isElectionRelated,
 } from "../utils";
-import { isElectionRelated } from "../utils/filters";
 
 let initialAllTimeTweetCount = 0;
 let sessionTweetCount = 0;
@@ -35,9 +35,7 @@ const detectNewTweets = async (): Promise<void> => {
         const tweet = elements[index] as HTMLDivElement;
 
         if (
-            // TODO
-            // check if tweet is election-related before sending to server
-            !isElectionRelated(tweet) || // I think done (?)
+            !isElectionRelated(tweet) ||
             isFromNewsOutlet(tweet) ||
             isPostedByCurrentUser(tweet, currentUser) ||
             isAccountPrivate(tweet) ||
@@ -48,7 +46,10 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
-            const tweetBody = extractTweetBody(tweet);
+            const tweetBodyWrapper = tweet.querySelector(
+                'div.css-1dbjc4n > div[data-testid="tweetText"]'
+            ) as HTMLDivElement;
+            const tweetBody = extractTweetBody(tweetBodyWrapper);
 
             if (tweetBody) {
                 const result = await sendTweetToServer(tweetBody);
@@ -75,12 +76,6 @@ const detectNewTweets = async (): Promise<void> => {
     }
 };
 
-// const scrollFunction = (): void => {
-//     setTimeout(() => {
-//         window.scrollBy(10, 10);
-//     }, 1000);
-// };
-
 const scrollFunction = (): void => {
     chrome.runtime.sendMessage({ action: "checkTwitter" }, (response) => {
         if (response.isTwitter) {
@@ -94,18 +89,6 @@ const scrollFunction = (): void => {
 const enableExtension = (): void => {
     document.addEventListener("DOMContentLoaded", detectNewTweets);
     window.addEventListener("scroll", detectNewTweets);
-
-    // const handleStorageChange = (changes: any, namespace: string) => {
-    //     if (changes.dailyTweetCount && namespace === "local") {
-    //         if (changes.dailyTweetCount.newValue === 0) {
-    //             sessionDailyTweetCount = 0;
-    //             sessionAllTimeTweetCount = 0;
-    //             initialDailyTweetCount = 0;
-    //             initialAllTimeTweetCount = 0;
-    //         }
-    //     }
-    // };
-    // chrome.storage.onChanged.addListener(handleStorageChange);
 };
 
 const disableExtension = (): void => {
