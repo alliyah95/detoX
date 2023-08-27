@@ -57,7 +57,12 @@ const extractTweetBody = (
             }
         });
 
-        return text;
+        const extractedHashtags = text.replace(/(^|\s)(#)+/g, "$1 ");
+        const maskedUsernames = extractedHashtags.replace(
+            /@\w+\b/g,
+            "[USERNAME]"
+        );
+        return maskedUsernames;
 
         // const tweetBodyString = tweetBody.join(" ");
         // const regex = /^Show \d+ tweets$/;
