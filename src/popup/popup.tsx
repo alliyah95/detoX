@@ -94,14 +94,13 @@ const App: React.FC<{}> = () => {
             <BodyWrapper>
                 {!isTabOnTwitter && (
                     <ErrorMessage
-                        message="The current tab is not on Twitter. Please return to Twitter to
-                continue detecting hate speech."
+                        message="This extension only works on Twitter."
                         key={1}
                     />
                 )}
                 {isTabOnTwitter && errorOccured && (
                     <ErrorMessage
-                        message="The detoX API is currently down. Please try again later."
+                        message="The detoX server is currently down. Please try again later."
                         key={2}
                     />
                 )}
