@@ -63,15 +63,6 @@ const extractTweetBody = (
             "[USERNAME]"
         );
         return maskedUsernames;
-
-        // const tweetBodyString = tweetBody.join(" ");
-        // const regex = /^Show \d+ tweets$/;
-
-        // if (regex.test(tweetBodyString)) {
-        //     return " ";
-        // }
-
-        // return tweetBodyString;
     } catch (err) {
         return " ";
     }
