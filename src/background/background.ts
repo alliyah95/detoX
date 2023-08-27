@@ -6,12 +6,26 @@ chrome.runtime.onInstalled.addListener(() => {
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.action === 'checkTwitter') {
+    if (request.action === "checkTwitter") {
         const currentTab = sender.tab;
-        const isTwitter = currentTab && currentTab.url && currentTab.url.includes('twitter.com');
+        const isTwitter =
+            currentTab &&
+            currentTab.url &&
+            currentTab.url.includes("twitter.com");
         sendResponse({ isTwitter });
     }
 });
+
+const handleTweetProcessingState = (message) => {
+    if (message.action === "tweetProcessingError") {
+        chrome.action.setBadgeText({ text: "!" }, () => {});
+    } else if (message.action === "tweetProcessingSuccess") {
+        chrome.action.setBadgeText({ text: "" }, () => {});
+    }
+};
+
+chrome.runtime.onMessage.addListener(handleTweetProcessingState);
+chrome.action.setBadgeBackgroundColor({ color: [201, 48, 48, 255] });
 
 // TODO change UTC hours to 4
 // const utcTime = new Date();
