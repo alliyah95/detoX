@@ -14,6 +14,7 @@ const mediaDirectory = [
     "@TheFreemanNews",
     "@gmanews",
     "@gmanewsbreaking",
+    "@gmanetwork",
     "@HatawTabloid",
     "@inquirer_libre",
     "@inquirerdotnet",
