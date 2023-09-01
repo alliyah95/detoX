@@ -35,11 +35,11 @@ const detectNewTweets = async (): Promise<void> => {
         const tweet = elements[index] as HTMLDivElement;
 
         if (
-            !isElectionRelated(tweet) ||
-            isFromNewsOutlet(tweet) ||
-            isPostedByCurrentUser(tweet, currentUser) ||
+            tweet.hasAttribute("data-tweet-processed") ||
             isAccountPrivate(tweet) ||
-            tweet.hasAttribute("data-tweet-processed")
+            isPostedByCurrentUser(tweet, currentUser) ||
+            isFromNewsOutlet(tweet) ||
+            !isElectionRelated(tweet)
         ) {
             continue;
         }
