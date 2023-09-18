@@ -1,11 +1,6 @@
 import { sendTweetToServer } from "./api";
 import { getCurrentTab, sendExtensionStateToContentScript } from "./general";
-import {
-    setExtensionState,
-    getExtensionState,
-    setStoredAllTimeTweetCount,
-    getStoredAllTimeTweetCount,
-} from "./storage";
+import { setExtensionState, getExtensionState } from "./storage";
 import {
     isElectionRelated,
     isFromNewsOutlet,
@@ -26,8 +21,6 @@ export {
     sendExtensionStateToContentScript,
     getExtensionState,
     setExtensionState,
-    getStoredAllTimeTweetCount,
-    setStoredAllTimeTweetCount,
     getCurrentTab,
     getCurrentUsername,
     extractTweetAuthor,

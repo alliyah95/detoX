@@ -1,7 +1,6 @@
-import { setExtensionState, setStoredAllTimeTweetCount } from "../utils";
+import { setExtensionState } from "../utils";
 
 chrome.runtime.onInstalled.addListener(() => {
-    setStoredAllTimeTweetCount(0);
     setExtensionState(true);
 });
 
