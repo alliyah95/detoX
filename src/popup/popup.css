@@ -68,8 +68,7 @@ body {
     width: 24px;
 }
 
-.counter-card,
-.heading-wrapper {
+.counter-card {
     border-radius: 6px;
     padding-top: 14px;
     padding-bottom: 14px;
