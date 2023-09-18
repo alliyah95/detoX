@@ -3,27 +3,18 @@ import { createRoot } from "react-dom/client";
 import "./popup.css";
 import {
     BodyWrapper,
-    CounterCard,
-    ErrorMessage,
+    MessageBox,
     Header,
     HeaderWrapper,
     Toggle,
 } from "./components";
 import {
     getExtensionState,
-    getStoredAllTimeTweetCount,
     sendExtensionStateToContentScript,
     getCurrentTab,
 } from "../utils";
 
-type CountState = "fetching" | "ready";
-
 const App: React.FC<{}> = () => {
-    const [sessionTweetCount, setSessionTweetCount] = useState<number>(0);
-    const [allTimeTweetCount, setAllTimeTweetCount] = useState<number | null>(
-        null
-    );
-    const [countState, setCountState] = useState<CountState>("fetching");
     const [extensionState, setExtensionState] = useState<boolean | null>(false);
     const [isTabOnTwitter, setIsTabOnTwitter] = useState<boolean>(true);
     const [errorOccured, setErrorOccurred] = useState<boolean>(false);
@@ -49,34 +40,12 @@ const App: React.FC<{}> = () => {
     };
 
     useEffect(() => {
-        getStoredAllTimeTweetCount().then((tweetCounts) => {
-            const allTimeCount = tweetCounts.allTimeTweetCount;
-            setAllTimeTweetCount(allTimeCount);
-            setCountState("ready");
-        });
-
         getExtensionState().then((state) => {
             setExtensionState(state);
         });
 
         checkActiveTab();
         initializeErrorListener();
-
-        const handleStorageChange = (changes: any, namespace: string) => {
-            if (changes.allTimeTweetCount && namespace === "local") {
-                if (
-                    changes.allTimeTweetCount &&
-                    changes.allTimeTweetCount.newValue
-                ) {
-                    setAllTimeTweetCount(changes.allTimeTweetCount.newValue);
-                }
-            }
-        };
-        chrome.storage.onChanged.addListener(handleStorageChange);
-
-        return () => {
-            chrome.storage.onChanged.removeListener(handleStorageChange);
-        };
     }, []);
 
     const handleExtensionState = (newState: boolean): void => {
@@ -93,40 +62,29 @@ const App: React.FC<{}> = () => {
 
             <BodyWrapper>
                 {!isTabOnTwitter && (
-                    <ErrorMessage
+                    <MessageBox
                         message="This extension only works on Twitter."
+                        type="error"
                         key={1}
+                        forceMultiline={true}
                     />
                 )}
                 {isTabOnTwitter && errorOccured && (
-                    <ErrorMessage
+                    <MessageBox
                         message="The detoX server is currently down. Please try again later."
+                        type="error"
                         key={2}
+                        forceMultiline={false}
                     />
                 )}
-
-                <div className="heading-wrapper bg-white">
-                    <h2 className="font-bold text-center text-blue">
-                        Hidden Tweets
-                    </h2>
-                </div>
-
-                <CounterCard
-                    heading="ON THIS PAGE"
-                    tweetCount={
-                        countState === "ready"
-                            ? sessionTweetCount
-                            : "Loading..."
-                    }
-                />
-                <CounterCard
-                    heading="SINCE INSTALL"
-                    tweetCount={
-                        countState === "ready"
-                            ? allTimeTweetCount
-                            : "Loading..."
-                    }
-                />
+                {isTabOnTwitter && !errorOccured && (
+                    <MessageBox
+                        message="A detoX a day keeps the hate speech away."
+                        type="info"
+                        key={3}
+                        forceMultiline={true}
+                    />
+                )}
             </BodyWrapper>
         </div>
     );

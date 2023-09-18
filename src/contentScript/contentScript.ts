@@ -1,7 +1,5 @@
 import {
     sendTweetToServer,
-    setStoredAllTimeTweetCount,
-    getStoredAllTimeTweetCount,
     getExtensionState,
     getCurrentUsername,
     isAccountPrivate,
@@ -12,13 +10,6 @@ import {
     getTwitterTheme,
     isElectionRelated,
 } from "../utils";
-
-let initialAllTimeTweetCount = 0;
-let sessionTweetCount = 0;
-
-getStoredAllTimeTweetCount().then((count) => {
-    initialAllTimeTweetCount = count.allTimeTweetCount;
-});
 
 const detectNewTweets = async (): Promise<void> => {
     const theme = getTwitterTheme();
@@ -60,11 +51,6 @@ const detectNewTweets = async (): Promise<void> => {
                     tweet.style.paddingTop = "20px";
                     tweet.style.paddingBottom = "24px";
                     tweet.appendChild(overlayElement);
-
-                    sessionTweetCount++;
-                    setStoredAllTimeTweetCount(
-                        initialAllTimeTweetCount + sessionTweetCount
-                    );
                 }
                 chrome.runtime.sendMessage({
                     action: "tweetProcessingSuccess",
