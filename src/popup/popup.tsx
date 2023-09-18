@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./popup.css";
 import {
     BodyWrapper,
-    ErrorMessage,
+    MessageBox,
     Header,
     HeaderWrapper,
     Toggle,
@@ -62,15 +62,27 @@ const App: React.FC<{}> = () => {
 
             <BodyWrapper>
                 {!isTabOnTwitter && (
-                    <ErrorMessage
+                    <MessageBox
                         message="This extension only works on Twitter."
+                        type="error"
                         key={1}
+                        forceMultiline={true}
                     />
                 )}
                 {isTabOnTwitter && errorOccured && (
-                    <ErrorMessage
+                    <MessageBox
                         message="The detoX server is currently down. Please try again later."
+                        type="error"
                         key={2}
+                        forceMultiline={false}
+                    />
+                )}
+                {isTabOnTwitter && !errorOccured && (
+                    <MessageBox
+                        message="A detoX a day keeps the hate speech away."
+                        type="info"
+                        key={3}
+                        forceMultiline={true}
                     />
                 )}
             </BodyWrapper>

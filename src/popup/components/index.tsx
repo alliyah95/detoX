@@ -1,15 +1,7 @@
 import BodyWrapper from "./BodyWrapper";
-import CounterCard from "./CounterCard";
-import ErrorMessage from "./ErrorMessage";
+import MessageBox from "./MessageBox";
 import Header from "./Header";
 import HeaderWrapper from "./HeaderWrapper";
 import Toggle from "./Toggle";
 
-export {
-    BodyWrapper,
-    CounterCard,
-    ErrorMessage,
-    Header,
-    HeaderWrapper,
-    Toggle,
-};
+export { BodyWrapper, MessageBox, Header, HeaderWrapper, Toggle };
