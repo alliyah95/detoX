@@ -1,9 +1,7 @@
-interface LocalStorage {
-    extensionEnabled?: boolean;
-}
+import { LocalStorage } from "./types";
 
 /**
- *
+ * Sets the state of the extension based on whether it is enabled or disabled.
  * @param extensionEnabled - true is extension is enabled, otherwise false
  * @returns  a Promise that resolves once the extension state is set.
  */

@@ -9,6 +9,9 @@ enum TwitterTheme {
     Dark = "css-1dbjc4n r-1igl3o0 r-qklmqi r-1adg3ll r-1ny4l3l",
 }
 type TweetBodyWrapper = HTMLDivElement | Node | ChildNode;
+interface LocalStorage {
+    extensionEnabled?: boolean;
+}
 
 /* used by the popup */
 interface ReactNode {
@@ -34,4 +37,5 @@ export {
     MessageBoxProps,
     ToggleProps,
     TweetBodyWrapper,
+    LocalStorage,
 };
