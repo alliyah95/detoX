@@ -1,35 +1,34 @@
-# React Chrome Extension Boilerplate
+<div align="center">
+  <img src="https://github.com/alliyah95/detoX-api/assets/74038500/1ac3050c-023a-4f81-a205-be1a7e1c6aad" alt="detoX Logo" width="64">
 
-Boilerplate for building Chrome Extensions in React and TypeScript using a simple Webpack build process.
+# detoX
 
-## Getting Started
+</div>
 
-1. `npm i` to install dependancies
-2. `npm start` to start running the fast development mode Webpack build process that bundle files into the `dist` folder
-3. `npm i --save-dev <package_name>` to install new packages
+The **detoX Browser Extension** is a tool designed to enhance your online experience on the Twitter platform by promoting a safer and more respectful digital environment. Specifically tailored for the context of Philippine politics, this extension is engineered to detect and address hate speech in election-related and politics-related content on Twitter.
 
-## Loading The Chrome Extension
+It makes use of a [fine-tuned BERT model](https://huggingface.co/mapsoriano/roberta-tagalog-base-philippine-elections-2016-2022-hate-speech), particularly the [RoBERTA Tagalog Base](https://huggingface.co/jcblaise/roberta-tagalog-base) variant, which was trained using a [dataset](https://huggingface.co/datasets/mapsoriano/2016_2022_hate_speech_filipino) containing tweets from the 2016 and 2022 Philippine elections.
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Toggle on `Developer mode` in the top right corner
-3. Click `Load unpacked`
-4. Select the entire `dist` folder
+![](assets/detoX-Preview.gif)
 
-## Production Build
+## ⚙ Local Setup and Installation
 
-1. `npm run build` to generate a minimized production build in the `dist` folder
-2. ZIP the entire `dist` folder (e.g. `dist.zip`)
-3. Publish the ZIP file on the Chrome Web Store Developer Dashboard!
+1. Install the dependencies by running the command `npm install`.
+2. Generate a production build using the command `npm run build`. This will create a `dist` folder containing the necessary files.
+3. Open Google Chrome or any Chromium-based browser, and navigate to `chrome://extensions/`.
+4. Enable `Developer mode` from the top right corner of the browser window.
+5. Click on `Load unpacked`.
+6. Select the generated `dist` folder.
+7. Ensure that the [detoX server](https://github.com/alliyah95/detoX-api) is up and running.
+8. You can now start using the detoX Browser Extension for Twitter.
 
-## Initial Steps
+## 🚧 Built With
 
-1. `git init` to start a new git repo for tracking your changes, do an initial base commit with all the default files
-2. Update `package.json`, important fields include `author`, `version`, `name` and `description`
-3. Update `manifest.json`, important fields include `version`, `name` and `description`
-4. Update `webpack.commmon.js`, the title in the `getHtmlPlugins` function should be your extension name
+<img src="https://skillicons.dev/icons?i=ts,react,webpack" alt="Tools used for building the detoX browser extension">
 
-## Default Boilerplate Notes
+## 🧠 Authors
 
--   Folders get flattened, static references to images from HTML do not need to be relative (i.e. `icon.png` instead of `../static/icon.png`)
--   Importing local ts/tsx/css files should be relative, since Webpack will build a dependancy graph using these paths
--   Update the manifest file as per usual for chrome related permissions, references to files in here should also be flattened and not be relative
+-   Danica L. Castro
+-   Lenina Jemima V. Dizon
+-   Alliyah Joyce M. Sarip
+-   Mark Aaron P. Soriano
