@@ -1,11 +1,5 @@
 import React from "react";
-
-type MessageType = "info" | "error";
-interface MessageBoxProps {
-    message: string;
-    type: MessageType;
-    forceMultiline: boolean;
-}
+import { MessageBoxProps } from "../../utils/types";
 
 const MessageBoxProps: React.FC<MessageBoxProps> = ({
     message,
