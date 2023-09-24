@@ -14,6 +14,8 @@ import {
     getCurrentTab,
 } from "../utils";
 
+import { ProcessingStateObject } from "../utils/types";
+
 const App: React.FC<{}> = () => {
     const [extensionState, setExtensionState] = useState<boolean | null>(false);
     const [isTabOnTwitter, setIsTabOnTwitter] = useState<boolean>(true);
@@ -28,7 +30,7 @@ const App: React.FC<{}> = () => {
     };
 
     const initializeErrorListener = (): void => {
-        const handleTweetProcessingState = (message) => {
+        const handleTweetProcessingState = (message: ProcessingStateObject) => {
             if (message.action === "tweetProcessingError") {
                 setErrorOccurred(true);
             } else if (message.action === "tweetProcessingSuccess") {

@@ -1,3 +1,6 @@
+/**
+ * A list of news and media outlets in the Philippines provided by EIN Presswire.
+ */
 const mediaDirectory = [
     "@ABSCBNNews",
     "@ANCALERTS",
