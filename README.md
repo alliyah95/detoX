@@ -15,7 +15,7 @@ It makes use of a [fine-tuned BERT model](https://huggingface.co/mapsoriano/robe
 
 1. Install the dependencies by running the command `npm install`.
 2. Generate a production build using the command `npm run build`. This will create a `dist` folder containing the necessary files.
-3. Open Google Chrome or any Chromium-based browser, and navigate to `chrome://extensions/`.
+3. Open Google Chrome or any Chromium-based browser, and access the extensions page. In Google Chrome, this can be done by navigating to `chrome://extensions/`.
 4. Enable `Developer mode` from the top right corner of the browser window.
 5. Click on `Load unpacked`.
 6. Select the generated `dist` folder.
