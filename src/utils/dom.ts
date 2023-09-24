@@ -1,6 +1,10 @@
 import { nanoid } from "nanoid";
 import { TwitterTheme, TweetBodyWrapper } from "./types";
 
+/**
+ * Retrieves the username of the currently logged in user
+ * @returns the username of the currently logged in user
+ */
 const getCurrentUsername = (): string => {
     const loggedInIndicator = document.querySelector(
         '[data-testid="SideNav_AccountSwitcher_Button"]'
@@ -19,6 +23,12 @@ const getCurrentUsername = (): string => {
     }
 };
 
+/**
+ * Retrieves the author of a tweet. If tweet is a repost, the author
+ * of the orignal tweet is retrieved.
+ * @param tweet - the HTML markup of the tweet.
+ * @returns the author of a tweet.
+ */
 const extractTweetAuthor = (tweet: HTMLDivElement): string => {
     const tweetContent = tweet.innerText.split("\n");
     const tweetAuthor =
@@ -26,6 +36,11 @@ const extractTweetAuthor = (tweet: HTMLDivElement): string => {
     return tweetAuthor;
 };
 
+/**
+ * Extracts the text content of a tweet
+ * @param tweetBodyWrapper : the HTML markup of the tweet
+ * @returns the text content of a tweet with segemented hashtags and masked URLs and usernames
+ */
 const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
     try {
         let text = "";
@@ -59,6 +74,10 @@ const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
     }
 };
 
+/**
+ * Removes the warning screen placed over the tweet
+ * @param overlayId - the nanoid generated and assigned to a processed tweet
+ */
 const handleViewBtn = (overlayId: string): void => {
     const targetElement = document.querySelector(
         `[data-overlay-for="${overlayId}"]`
@@ -66,6 +85,10 @@ const handleViewBtn = (overlayId: string): void => {
     targetElement.remove();
 };
 
+/**
+ * Creates a paragraph element containing the message for the warning screen
+ * @returns a paragraph element containing the message for the warning screen
+ */
 const createMessageElement = (): HTMLParagraphElement => {
     const message = document.createElement("p");
     message.innerHTML =
@@ -80,6 +103,10 @@ const createMessageElement = (): HTMLParagraphElement => {
     return message;
 };
 
+/**
+ * Creates a button element for the warning screen
+ * @returns a button element for the warning screen
+ */
 const createBtnElement = (): HTMLButtonElement => {
     const viewBtn = document.createElement("button");
     viewBtn.style.backgroundColor = "#ffffff";
@@ -102,6 +129,11 @@ const createBtnElement = (): HTMLButtonElement => {
     return viewBtn;
 };
 
+/**
+ * Creates the warning screen
+ * @param tweet - the HTML markup of a tweet
+ * @returns an HTML Div element that will serve as a warning screen for tweets identified as hate speech
+ */
 const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     const overlayElement = document.createElement("div");
     overlayElement.style.position = "absolute";
@@ -134,6 +166,10 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     return overlayElement;
 };
 
+/**
+ * Retrieves the Twitter theme of the user
+ * @returns the selectors used for retrieving tweets based from the user's Twitter theme
+ */
 const getTwitterTheme = (): TwitterTheme => {
     const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
     if (bodyBackgroundColor === "rgb(21, 32, 43)") {

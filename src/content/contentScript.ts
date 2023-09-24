@@ -13,6 +13,9 @@ import {
 
 import { TwitterTheme } from "../utils/types";
 
+/**
+ * Retrieves the currently loaded tweets on the active Twitter webpage.
+ */
 const detectNewTweets = async (): Promise<void> => {
     const theme: TwitterTheme = getTwitterTheme();
 
@@ -68,16 +71,25 @@ const scrollFunction = (): void => {
     });
 };
 
+/**
+ * Enables the extension by adding event listeners to the docoument and window objects.
+ */
 const enableExtension = (): void => {
     document.addEventListener("DOMContentLoaded", detectNewTweets);
     window.addEventListener("scroll", detectNewTweets);
 };
 
+/**
+ * Disables the extension by removing the event listeners from the docoument and window objects.
+ */
 const disableExtension = (): void => {
     document.removeEventListener("DOMContentLoaded", detectNewTweets);
     window.removeEventListener("scroll", detectNewTweets);
 };
 
+/**
+ * Retrieves the stored extension state from the Chrome storage and configures it accordingly.
+ */
 const setInitialExtensionState = async (): Promise<void> => {
     const isExtensionEnabled = await getExtensionState();
     if (isExtensionEnabled) {
@@ -87,7 +99,6 @@ const setInitialExtensionState = async (): Promise<void> => {
         disableExtension();
     }
 };
-
 setInitialExtensionState();
 
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {

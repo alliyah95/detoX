@@ -2,6 +2,11 @@ interface LocalStorage {
     extensionEnabled?: boolean;
 }
 
+/**
+ *
+ * @param extensionEnabled - true is extension is enabled, otherwise false
+ * @returns  a Promise that resolves once the extension state is set.
+ */
 const setExtensionState = (extensionEnabled: boolean): Promise<void> => {
     return new Promise<void>((resolve) => {
         const vals: LocalStorage = {
@@ -13,6 +18,11 @@ const setExtensionState = (extensionEnabled: boolean): Promise<void> => {
     });
 };
 
+/**
+ * Retrieves the current state of the extension, indicating whether it is enabled or disabled.
+ * @returns a Promise that resolves with a boolean value, where true indicates the extension is enabled,
+ * and false indicates it is disabled.
+ */
 const getExtensionState = (): Promise<boolean> => {
     return new Promise((resolve) => {
         chrome.storage.local.get("extensionEnabled", (result) => {

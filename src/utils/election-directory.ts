@@ -1,3 +1,7 @@
+/**
+ * Contains keywords related to the 2022 Philippine Presidential Elections.
+ * Used for determining whether a tweet is election-related or not.
+ */
 const electionDirectory = [
     "PiliPinasDebates2022",
     "PipiPinas Debates 2022",
