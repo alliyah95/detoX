@@ -1,4 +1,4 @@
-const sendExtensionStateToContentScript = (state: boolean) => {
+const sendExtensionStateToContentScript = (state: boolean): void => {
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
         const activeTab = tabs[0];
         if (activeTab) {

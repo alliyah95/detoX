@@ -135,7 +135,8 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     return overlayElement;
 };
 
-const getTwitterTheme = (): string => {
+type TwitterTheme = "dim" | "white" | "dark";
+const getTwitterTheme = (): TwitterTheme => {
     const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
     if (bodyBackgroundColor === "rgb(21, 32, 43)") {
         return "dim";

@@ -15,7 +15,12 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
-const handleTweetProcessingState = (message) => {
+type ProcessingState = "tweetProcessingError" | "tweetProcessingSuccess";
+interface Message {
+    action?: ProcessingState;
+}
+
+const handleTweetProcessingState = (message: Message): void => {
     if (message.action === "tweetProcessingError") {
         chrome.action.setBadgeText({ text: "!" }, () => {});
     } else if (message.action === "tweetProcessingSuccess") {
