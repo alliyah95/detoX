@@ -1,4 +1,5 @@
 import { setExtensionState } from "../utils";
+import { ProcessingStateObject } from "../utils/types";
 
 chrome.runtime.onInstalled.addListener(() => {
     setExtensionState(true);
@@ -15,12 +16,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     }
 });
 
-type ProcessingState = "tweetProcessingError" | "tweetProcessingSuccess";
-interface Message {
-    action?: ProcessingState;
-}
-
-const handleTweetProcessingState = (message: Message): void => {
+const handleTweetProcessingState = (message: ProcessingStateObject): void => {
     if (message.action === "tweetProcessingError") {
         chrome.action.setBadgeText({ text: "!" }, () => {});
     } else if (message.action === "tweetProcessingSuccess") {

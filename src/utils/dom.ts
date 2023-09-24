@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import { TwitterTheme, TweetBodyWrapper } from "./types";
 
 const getCurrentUsername = (): string => {
     const loggedInIndicator = document.querySelector(
@@ -25,9 +26,7 @@ const extractTweetAuthor = (tweet: HTMLDivElement): string => {
     return tweetAuthor;
 };
 
-const extractTweetBody = (
-    tweetBodyWrapper: HTMLDivElement | Node | ChildNode
-): string => {
+const extractTweetBody = (tweetBodyWrapper: TweetBodyWrapper): string => {
     try {
         let text = "";
         const childNodes = tweetBodyWrapper.childNodes;
@@ -135,15 +134,14 @@ const createOverlayElement = (tweet: HTMLDivElement): HTMLDivElement => {
     return overlayElement;
 };
 
-type TwitterTheme = "dim" | "white" | "dark";
 const getTwitterTheme = (): TwitterTheme => {
     const bodyBackgroundColor = getComputedStyle(document.body).backgroundColor;
     if (bodyBackgroundColor === "rgb(21, 32, 43)") {
-        return "dim";
+        return TwitterTheme.Dim;
     } else if (bodyBackgroundColor === "rgb(255, 255, 255)") {
-        return "white";
+        return TwitterTheme.White;
     } else {
-        return "dark";
+        return TwitterTheme.Dark;
     }
 };
 

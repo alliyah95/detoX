@@ -1,10 +1,6 @@
 import React from "react";
 import { setExtensionState } from "../../utils";
-
-interface ToggleProps {
-    isOn: boolean;
-    onChange: (newState: boolean) => void;
-}
+import { ToggleProps } from "../../utils/types";
 
 const Toggle: React.FC<ToggleProps> = ({ isOn, onChange }) => {
     const handleToggleChange = () => {
