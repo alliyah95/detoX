@@ -5,7 +5,7 @@
 
 </div>
 
-The **detoX Browser Extension** is a tool designed to enhance your online experience on the Twitter platform by promoting a safer and more respectful digital environment. Specifically tailored for the context of Philippine politics, this extension is engineered to detect and address hate speech in election-related and politics-related content on Twitter.
+The **detoX Browser Extension** is a tool designed to enhance one's online experience on the Twitter platform by promoting a safer and more respectful digital environment. Specifically tailored for the context of Philippine politics, this extension is engineered to detect and address hate speech in election-related and politics-related content on Twitter.
 
 It makes use of a [fine-tuned BERT model](https://huggingface.co/mapsoriano/roberta-tagalog-base-philippine-elections-2016-2022-hate-speech), particularly the [RoBERTA Tagalog Base](https://huggingface.co/jcblaise/roberta-tagalog-base) variant, which was trained using a [dataset](https://huggingface.co/datasets/mapsoriano/2016_2022_hate_speech_filipino) containing tweets from the 2016 and 2022 Philippine elections.
 
