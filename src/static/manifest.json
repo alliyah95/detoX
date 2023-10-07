@@ -1,7 +1,7 @@
 {
     "name": "detoX",
     "description": "Empowering respectful online conversations by detecting and addressing hate speech in the Philippines.",
-    "version": "1.0.0",
+    "version": "1.0.2.1",
     "manifest_version": 3,
     "icons": {
         "16": "icon.png",
@@ -18,6 +18,7 @@
     "background": {
         "service_worker": "background.js"
     },
+    "host_permissions": ["https://twitter.com/*"],
     "content_scripts": [
         {
             "matches": ["https://twitter.com/*"],
