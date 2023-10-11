@@ -23,4 +23,13 @@ const getCurrentTab = async () => {
     return tab;
 };
 
-export { getCurrentTab, sendExtensionStateToContentScript };
+/**
+ * Scrolls the window vertically. This function is called when the extension is enabled.
+ */
+const initialScroll = (): void => {
+    setTimeout(() => {
+        window.scrollBy(0, 1);
+    }, 3500);
+};
+
+export { getCurrentTab, sendExtensionStateToContentScript, initialScroll };

@@ -9,6 +9,7 @@ import {
     createOverlayElement,
     getTwitterTheme,
     isElectionRelated,
+    initialScroll,
 } from "../utils";
 
 import { TwitterTheme } from "../utils/types";
@@ -61,22 +62,13 @@ const detectNewTweets = async (): Promise<void> => {
     }
 };
 
-const scrollFunction = (): void => {
-    chrome.runtime.sendMessage({ action: "checkTwitter" }, (response) => {
-        if (response.isTwitter) {
-            setInterval(() => {
-                window.scrollBy(0, 1 / 2);
-            }, 1000);
-        }
-    });
-};
-
 /**
  * Enables the extension by adding event listeners to the docoument and window objects.
  */
 const enableExtension = (): void => {
     document.addEventListener("DOMContentLoaded", detectNewTweets);
     window.addEventListener("scroll", detectNewTweets);
+    initialScroll();
 };
 
 /**
@@ -94,7 +86,6 @@ const setInitialExtensionState = async (): Promise<void> => {
     const isExtensionEnabled = await getExtensionState();
     if (isExtensionEnabled) {
         enableExtension();
-        scrollFunction();
     } else {
         disableExtension();
     }
@@ -106,7 +97,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         const state = message.state;
         if (state) {
             enableExtension();
-            scrollFunction();
         } else {
             disableExtension();
         }

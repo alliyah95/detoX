@@ -73,7 +73,7 @@ const App: React.FC<{}> = () => {
                 )}
                 {isTabOnTwitter && errorOccured && (
                     <MessageBox
-                        message="The detoX server is currently down. Please try again later."
+                        message="The detoX server may be down right now or is still loading. Please wait for a moment."
                         type="error"
                         key={2}
                         forceMultiline={false}

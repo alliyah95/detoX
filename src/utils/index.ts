@@ -1,5 +1,9 @@
 import { sendTweetToServer } from "./api";
-import { getCurrentTab, sendExtensionStateToContentScript } from "./general";
+import {
+    getCurrentTab,
+    sendExtensionStateToContentScript,
+    initialScroll,
+} from "./general";
 import { setExtensionState, getExtensionState } from "./storage";
 import {
     isElectionRelated,
@@ -19,6 +23,7 @@ import {
 export {
     sendTweetToServer,
     sendExtensionStateToContentScript,
+    initialScroll,
     getExtensionState,
     setExtensionState,
     getCurrentTab,
