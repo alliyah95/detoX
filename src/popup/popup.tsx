@@ -7,6 +7,7 @@ import {
     Header,
     HeaderWrapper,
     Toggle,
+    InfoButton,
 } from "./components";
 import {
     getExtensionState,
@@ -59,7 +60,13 @@ const App: React.FC<{}> = () => {
         <div>
             <HeaderWrapper>
                 <Header />
-                <Toggle isOn={extensionState} onChange={handleExtensionState} />
+                <div className="header-toggle">
+                    <Toggle
+                        isOn={extensionState}
+                        onChange={handleExtensionState}
+                    />
+                    <InfoButton />
+                </div>
             </HeaderWrapper>
 
             <BodyWrapper>

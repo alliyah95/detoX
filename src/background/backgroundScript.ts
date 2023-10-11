@@ -7,6 +7,7 @@ import { ProcessingStateObject } from "../utils/types";
 chrome.runtime.onInstalled.addListener(() => {
     sendTweetToServer("");
     setExtensionState(true);
+    chrome.tabs.create({ url: "options.html" });
 });
 
 /**
