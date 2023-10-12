@@ -37,10 +37,14 @@ const detectNewTweets = async (): Promise<void> => {
 
         try {
             tweet.setAttribute("data-tweet-processed", "true");
-            const tweetBodyWrapper = tweet.querySelector(
+            const tweetBodyWrapper = tweet.querySelectorAll(
                 'div.css-1dbjc4n > div[data-testid="tweetText"]'
-            ) as HTMLDivElement;
-            const tweetBody = extractTweetBody(tweetBodyWrapper);
+            );
+            const combinedWrappers = document.createElement("div");
+            tweetBodyWrapper.forEach((element) => {
+                combinedWrappers.appendChild(element.cloneNode(true));
+            });
+            const tweetBody = extractTweetBody(combinedWrappers);
 
             if (tweetBody) {
                 const result = await sendTweetToServer(tweetBody);
