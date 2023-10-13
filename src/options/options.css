@@ -1,0 +1,283 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: #eef0f3;
+    font-family: "Inter", sans-serif;
+    position: relative;
+    color: #42413d;
+    font-size: 16px;
+}
+
+img {
+    max-width: 100%;
+}
+
+h1,
+h2 {
+    font-weight: 700;
+    font-family: Tahoma, Inter, sans-serif !important;
+}
+
+h1 {
+    font-size: 42px;
+}
+
+h2 {
+    font-size: 36px;
+    text-align: center;
+    margin-bottom: 64px;
+}
+
+h3 {
+    font-size: 24px;
+}
+
+/* utils */
+.bg-white {
+    background-color: white;
+}
+
+.text-blue {
+    color: #0051ce;
+}
+
+.container {
+    max-width: 1360px;
+    margin: 0 auto;
+}
+
+.container--inner {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+.cta-btn-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+/* components */
+.primary-btn {
+    background-color: #0051ce;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 999px;
+    transition: background-color 0.3s ease;
+}
+
+.primary-btn:hover {
+    background-color: #42413d;
+}
+
+/* header */
+nav {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.header__right {
+    display: flex;
+    gap: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 24px 0;
+}
+
+.header__link:hover {
+    color: #0051ce;
+}
+
+.header__logo {
+    height: 48px;
+}
+
+.header__text {
+    color: #0051ce;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Tahoma, Geneva, sans-serif;
+}
+
+/* hero */
+.section-hero {
+    padding-top: 42px;
+    padding-bottom: 42px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.hero-info {
+    max-width: 640px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.hero-info__subheading {
+    font-size: 20px;
+    max-width: 420px;
+    margin: 24px auto 0;
+}
+
+.hero-img {
+    padding-top: 120px;
+    margin-bottom: 36px;
+    text-align: center;
+}
+
+.hero-img img {
+    height: 240px;
+    width: auto;
+    border-radius: 12px;
+}
+
+.section-hero .cta-btn-wrapper {
+    margin-top: 25px;
+}
+
+/* about */
+.section-about h3 {
+    color: #0051ce;
+    margin-bottom: 20px;
+    transition: color 0.3s ease;
+}
+
+.about-cards-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+    margin-bottom: 42px;
+}
+
+.about-card {
+    background-color: white;
+    padding: 72px 42px 42px;
+    border-radius: 12px;
+}
+
+.about-card__icon {
+    height: 42px;
+    margin-bottom: 20px;
+}
+
+.about-card__icon svg {
+    height: 100%;
+    width: auto;
+    transition: background-color 0.3s ease;
+}
+
+/* tutorial */
+.how-to-use {
+    background-color: white;
+    border-radius: 12px;
+    padding: 42px;
+}
+
+.how-to-use__preview {
+    margin-bottom: 24px;
+}
+
+.how-to-use__preview img {
+    border-radius: 8px;
+}
+
+/* footer */
+footer {
+    background-color: white;
+    text-align: center;
+    padding: 32px;
+    margin-top: 24px;
+}
+
+.section-about .container,
+.section-tutorial .container {
+    max-width: 1200px;
+}
+
+.section-about,
+.section-tutorial {
+    padding-top: 72px;
+    padding-bottom: 72px;
+}
+
+.box-shadow-transition {
+    transition: box-shadow 0.3s ease;
+}
+
+.box-shadow-transition:hover {
+    box-shadow: 0px 12px 14px 4px rgba(8, 15, 52, 0.04);
+}
+
+@media (max-width: 1024px) {
+    .about-cards-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .about-card {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width: 767px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 36px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    .container--inner {
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .hero-info__subheading {
+        font-size: 16px;
+    }
+
+    .primary-btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .about-card {
+        padding: 64px 32px 32px;
+    }
+
+    .how-to-use {
+        padding: 32px;
+    }
+}

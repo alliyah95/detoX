@@ -27,6 +27,16 @@ interface ToggleProps {
     isOn: boolean;
     onChange: (newState: boolean) => void;
 }
+interface AboutCardProps {
+    heading: string;
+    description: string;
+    icon: React.ReactNode;
+}
+
+interface CTAProps {
+    linkTo: string;
+    buttonText: string;
+}
 
 export {
     ProcessingState,
@@ -38,4 +48,6 @@ export {
     ToggleProps,
     TweetBodyWrapper,
     LocalStorage,
+    AboutCardProps,
+    CTAProps,
 };

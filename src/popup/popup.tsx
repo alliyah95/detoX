@@ -7,6 +7,7 @@ import {
     Header,
     HeaderWrapper,
     Toggle,
+    InfoButton,
 } from "./components";
 import {
     getExtensionState,
@@ -59,7 +60,13 @@ const App: React.FC<{}> = () => {
         <div>
             <HeaderWrapper>
                 <Header />
-                <Toggle isOn={extensionState} onChange={handleExtensionState} />
+                <div className="header-toggle">
+                    <Toggle
+                        isOn={extensionState}
+                        onChange={handleExtensionState}
+                    />
+                    <InfoButton />
+                </div>
             </HeaderWrapper>
 
             <BodyWrapper>
@@ -73,7 +80,7 @@ const App: React.FC<{}> = () => {
                 )}
                 {isTabOnTwitter && errorOccured && (
                     <MessageBox
-                        message="The detoX server is currently down. Please try again later."
+                        message="The detoX server may be down right now or is still loading. Please wait for a moment."
                         type="error"
                         key={2}
                         forceMultiline={false}
