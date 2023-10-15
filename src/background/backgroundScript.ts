@@ -1,11 +1,10 @@
-import { setExtensionState, sendTweetToServer } from "../utils";
+import { setExtensionState } from "../utils";
 import { ProcessingStateObject } from "../utils/types";
 
 /**
  * Turns the extension on upon installation.
  */
 chrome.runtime.onInstalled.addListener(() => {
-    sendTweetToServer("");
     setExtensionState(true);
     chrome.tabs.create({ url: "options.html" });
 });
