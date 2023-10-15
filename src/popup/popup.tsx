@@ -14,6 +14,7 @@ import {
     sendExtensionStateToContentScript,
     getCurrentTab,
 } from "../utils";
+import { EmojiLaughing, Info } from "./components/icons";
 
 import { ProcessingStateObject } from "../utils/types";
 
@@ -73,7 +74,7 @@ const App: React.FC<{}> = () => {
                 {!isTabOnTwitter && (
                     <MessageBox
                         message="This extension only works on Twitter."
-                        type="error"
+                        icon={<Info />}
                         key={1}
                         forceMultiline={true}
                     />
@@ -81,7 +82,7 @@ const App: React.FC<{}> = () => {
                 {isTabOnTwitter && errorOccured && (
                     <MessageBox
                         message="The detoX server may be down right now or is still loading. Please wait for a moment."
-                        type="error"
+                        icon={<Info />}
                         key={2}
                         forceMultiline={false}
                     />
@@ -89,7 +90,7 @@ const App: React.FC<{}> = () => {
                 {isTabOnTwitter && !errorOccured && (
                     <MessageBox
                         message="A detoX a day keeps the hate speech away."
-                        type="info"
+                        icon={<EmojiLaughing />}
                         key={3}
                         forceMultiline={true}
                     />

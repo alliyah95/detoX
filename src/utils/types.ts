@@ -20,8 +20,8 @@ interface ReactNode {
 type MessageType = "info" | "error";
 interface MessageBoxProps {
     message: string;
-    type: MessageType;
     forceMultiline: boolean;
+    icon: React.ReactNode;
 }
 interface ToggleProps {
     isOn: boolean;
