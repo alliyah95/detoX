@@ -1,4 +1,4 @@
-import { setExtensionState, sendTweetToServer } from "../utils";
+import { setExtensionState } from "../utils";
 import { ProcessingStateObject } from "../utils/types";
 
 /**

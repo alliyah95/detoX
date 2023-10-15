@@ -15,7 +15,6 @@ import {
     getCurrentTab,
 } from "../utils";
 import { EmojiLaughing, Info } from "./components/icons";
-
 import { ProcessingStateObject } from "../utils/types";
 
 const App: React.FC<{}> = () => {
