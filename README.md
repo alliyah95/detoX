@@ -12,17 +12,6 @@ It makes use of a [fine-tuned BERT model](https://huggingface.co/mapsoriano/robe
 You can install the live extension from the [Chrome Web Store](https://chrome.google.com/webstore/detail/detox/efibkphbodijlgbhflloachnigfmgfdi)!
 ![](assets/detoX-Preview.gif)
 
-## 📄 Contents
-
--   [🌐 Relevant Links](#🌐-relevant-links)
-    1. [🗂️ Datasets Used](#🗂️-datasets-used)
-    2. [🤖 Models](#🤖-models)
-    3. [🧰 Browser Extension](#🧰-browser-extension)
--   [💻 Local Setup and Installation](#💻-local-setup-and-installation)
--   [🛠️ Built With](#🛠️-built-with)
--   [💙 Acknowledgements](#💙-acknowledgements)
--   [🧠 Authors](#🧠-authors)
-
 ## 🌐 Relevant Links
 
 ### 🗂️ Datasets Used
@@ -47,7 +36,7 @@ You can install the live extension from the [Chrome Web Store](https://chrome.go
 4. Enable `Developer mode` from the top right corner of the browser window.
 5. Click on `Load unpacked`.
 6. Select the generated `dist` folder.
-7. Ensure that the [detoX server](https://github.com/alliyah95/detoX-api) is up and running.
+7. Ensure that the [detoX API](https://github.com/alliyah95/detoX-api) is up and running.
 8. You can now start using the detoX Browser Extension for Twitter.
 
 ## 🛠️ Built With
@@ -58,14 +47,15 @@ You can install the live extension from the [Chrome Web Store](https://chrome.go
 
 | Name                           | Contribution                                                                     |
 | ------------------------------ | -------------------------------------------------------------------------------- |
-| 🌟 Dr. Mary Jane Rabena        | Our thesis adviser                                                               |
-| 🌟 Dr. Arlan Dela Cruz         | For sharing his expertise in research                                            |
-| 🌟 Ms. Abijah Louise Dela Cruz | For validating our 2022 dataset                                                  |
-| 🌟 Dr. Ocirne Jun-Jun Liwanag  | For evaluating our browser extension                                             |
-| 🌟 Mr. Arvin del Rosario       | For evaluating our browser extension                                             |
-| 🌟 Mr. John Montes             | For evaluating our browser extension                                             |
-| 🌟 Mr. Nelson Dizon            | For evaluating our browser extension                                             |
-| 🌟 Mr. Alberto Castro Jr.      | For evaluating our browser extension                                             |
+| 🌟 Dr. Mary Jane Rabena        | Our Thesis Adviser                                                               |
+| 🌟 Dr. Arlan Dela Cruz         | Our Thesis Co-Adviser                                                            |
+| 🌟 Ms. Abijah Louise Dela Cruz | Dataset Validator                                                                |
+| 🌟 Dr. Alma Theresa Manaloto   | Expert Evaluator                                                                 |
+| 🌟 Dr. Ocirne Jun-Jun Liwanag  | Expert Evaluator                                                                 |
+| 🌟 Mr. Arvin del Rosario       | Expert Evaluator                                                                 |
+| 🌟 Mr. John Montes             | Expert Evaluator                                                                 |
+| 🌟 Mr. Nelson Dizon            | Expert Evaluator                                                                 |
+| 🌟 Mr. Alberto Castro Jr.      | Expert Evaluator                                                                 |
 | 🌟 Mr. Blaise Cruz             | Publisher of the RoBERTa Tagalog Base model and the Hate Speech Filipino Dataset |
 
 ## 🧠 Authors
